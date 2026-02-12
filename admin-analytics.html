@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>تحليلات متقدمة</title>
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../css/admin-dashboard.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="admin-container">
+<main class="admin-main">
+
+<h1>التحليلات المتقدمة</h1>
+
+<div class="admin-card">
+<canvas id="growthChart"></canvas>
+</div>
+
+</main>
+</div>
+
+<script>
+const ctx = document.getElementById('growthChart').getContext('2d');
+
+new Chart(ctx,{
+type:'line',
+data:{
+labels:['يناير','فبراير','مارس','أبريل','مايو','يونيو'],
+datasets:[{
+label:'نمو المستخدمين',
+data:[120,150,180,220,260,300],
+borderColor:'#00ff88',
+backgroundColor:'rgba(0,255,136,0.1)',
+tension:0.4,
+fill:true
+}]
+},
+options:{
+responsive:true,
+plugins:{legend:{labels:{color:'#fff'}}},
+scales:{
+y:{ticks:{color:'#888'},grid:{color:'rgba(255,255,255,0.1)'}},
+x:{ticks:{color:'#888'},grid:{display:false}}
+}
+}
+});
+</script>
+
+</body>
+</html>

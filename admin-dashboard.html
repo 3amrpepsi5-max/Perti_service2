@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 لوحة التحكم - نزهة 2</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--light-bg);
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: var(--dark-bg);
+            color: #fff;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .sidebar {
+            background: #1e1e2e;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        body.dark-mode .sidebar-header {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 35px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar.collapsed .logo-text {
+            display: none;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode .toggle-btn {
+            color: #fff;
+        }
+
+        .toggle-btn:hover {
+            color: var(--primary-purple);
+            transform: scale(1.1);
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #666;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-right: 4px solid transparent;
+        }
+
+        body.dark-mode .menu-item {
+            color: #aaa;
+        }
+
+        .menu-item:hover {
+            background: rgba(153, 51, 255, 0.1);
+            color: var(--primary-purple);
+            border-right-color: var(--primary-purple);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(90deg, rgba(153, 51, 255, 0.15), transparent);
+            color: var(--primary-purple);
+            border-right-color: var(--primary-purple);
+            font-weight: 700;
+        }
+
+        .menu-item i {
+            font-size: 22px;
+            min-width: 25px;
+        }
+
+        .sidebar.collapsed .menu-item span {
+            display: none;
+        }
+
+        .sidebar.collapsed .menu-item {
+            justify-content: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-right: 280px;
+            padding: 30px;
+            transition: margin-right 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .sidebar.collapsed ~ .main-content {
+            margin-right: 80px;
+        }
+
+        /* Header */
+        .content-header {
+            background: white;
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        body.dark-mode .content-header {
+            background: #1e1e2e;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-title h1 {
+            font-size: 32px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .header-title p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        body.dark-mode .header-title p {
+            color: #aaa;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .action-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-pink));
+            color: white;
+            box-shadow: 0 5px 15px rgba(153, 51, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(153, 51, 255, 0.4);
+        }
+
+        .dark-toggle {
+            background: #f0f0f0;
+            color: #333;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.dark-mode .dark-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .dark-toggle:hover {
+            transform: rotate(180deg);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .stat-card {
+            background: #1e1e2e;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, currentColor, transparent);
+            opacity: 0.1;
+            border-radius: 0 0 0 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .stat-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .badge-up {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+
+        .badge-down {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        body.dark-mode .stat-label {
+            color: #aaa;
+        }
+
+        /* Charts Section */
+        .charts-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .chart-card {
+            background: #1e1e2e;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(135deg, rgba(153, 51, 255, 0.1), rgba(255, 20, 147, 0.1));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* Recent Activities */
+        .activities-section {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .activities-section {
+            background: #1e1e2e;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            border-right: 3px solid transparent;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        .activity-item:hover {
+            background: rgba(153, 51, 255, 0.05);
+            border-right-color: var(--primary-purple);
+        }
+
+        .activity-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .activity-time {
+            font-size: 12px;
+            color: #999;
+        }
+
+        @media (max-width: 1200px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-right: 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-menu-btn {
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, var(--primary-purple), var(--primary-pink));
+                color: white;
+                border: none;
+                font-size: 24px;
+                box-shadow: 0 5px 20px rgba(153, 51, 255, 0.4);
+                cursor: pointer;
+                z-index: 999;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-chart-line logo-icon"></i>
+                <span class="logo-text">نزهة 2</span>
+            </div>
+            <button class="toggle-btn" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="admin-dashboard.html" class="menu-item active">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </a>
+            <a href="admin-vendors.html" class="menu-item">
+                <i class="fas fa-store"></i>
+                <span>المزودون</span>
+            </a>
+            <a href="admin-users.html" class="menu-item">
+                <i class="fas fa-users"></i>
+                <span>المستخدمون</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-shopping-cart"></i>
+                <span>الطلبات</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-chart-bar"></i>
+                <span>التقارير</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-dollar-sign"></i>
+                <span>المالية</span>
+            </a>
+            <a href="admin-settings.html" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>الإعدادات</span>
+            </a>
+            <a href="admin-login.html" class="menu-item">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>تسجيل الخروج</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <div class="content-header">
+            <div class="header-title">
+                <h1>مرحباً بك، المسؤول 👋</h1>
+                <p>نظرة عامة على أداء النظام اليوم</p>
+            </div>
+            <div class="header-actions">
+                <button class="action-btn btn-primary">
+                    <i class="fas fa-download"></i>
+                    <span>تصدير التقرير</span>
+                </button>
+                <button class="action-btn dark-toggle" onclick="toggleDarkMode()">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card" style="color: var(--primary-blue)">
+                <div class="stat-header">
+                    <div class="stat-icon" style="background: rgba(0, 102, 255, 0.1); color: var(--primary-blue)">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-badge badge-up">
+                        <i class="fas fa-arrow-up"></i> 12%
+                    </div>
+                </div>
+                <div class="stat-value">2,543</div>
+                <div class="stat-label">إجمالي المستخدمين</div>
+            </div>
+
+            <div class="stat-card" style="color: var(--primary-purple)">
+                <div class="stat-header">
+                    <div class="stat-icon" style="background: rgba(153, 51, 255, 0.1); color: var(--primary-purple)">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="stat-badge badge-up">
+                        <i class="fas fa-arrow-up"></i> 8%
+                    </div>
+                </div>
+                <div class="stat-value">342</div>
+                <div class="stat-label">المزودون النشطون</div>
+            </div>
+
+            <div class="stat-card" style="color: var(--success)">
+                <div class="stat-header">
+                    <div class="stat-icon" style="background: rgba(40, 167, 69, 0.1); color: var(--success)">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-badge badge-up">
+                        <i class="fas fa-arrow-up"></i> 23%
+                    </div>
+                </div>
+                <div class="stat-value">$125.8K</div>
+                <div class="stat-label">إجمالي الإيرادات</div>
+            </div>
+
+            <div class="stat-card" style="color: var(--primary-orange)">
+                <div class="stat-header">
+                    <div class="stat-icon" style="background: rgba(255, 102, 0, 0.1); color: var(--primary-orange)">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-badge badge-down">
+                        <i class="fas fa-arrow-down"></i> 3%
+                    </div>
+                </div>
+                <div class="stat-value">1,856</div>
+                <div class="stat-label">الطلبات اليوم</div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">📈 الإيرادات الشهرية</h3>
+                    <select class="action-btn" style="background: #f0f0f0; color: #333;">
+                        <option>آخر 6 أشهر</option>
+                        <option>آخر 12 شهر</option>
+                    </select>
+                </div>
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-line" style="font-size: 48px; opacity: 0.3;"></i>
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3 class="chart-title">🎯 أفضل المزودين</h3>
+                </div>
+                <div class="chart-placeholder">
+                    <i class="fas fa-trophy" style="font-size: 48px; opacity: 0.3;"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activities -->
+        <div class="activities-section">
+            <div class="chart-header">
+                <h3 class="chart-title">📋 النشاطات الأخيرة</h3>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon" style="background: rgba(40, 167, 69, 0.1); color: var(--success)">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">مستخدم جديد انضم للمنصة</div>
+                    <div class="activity-time">منذ 5 دقائق</div>
+                </div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon" style="background: rgba(0, 102, 255, 0.1); color: var(--primary-blue)">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">طلب جديد بقيمة $234</div>
+                    <div class="activity-time">منذ 15 دقيقة</div>
+                </div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon" style="background: rgba(153, 51, 255, 0.1); color: var(--primary-purple)">
+                    <i class="fas fa-store"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">مزود جديد تم تفعيله</div>
+                    <div class="activity-time">منذ 30 دقيقة</div>
+                </div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon" style="background: rgba(255, 193, 7, 0.1); color: var(--warning)">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">تنبيه: مزود يحتاج مراجعة</div>
+                    <div class="activity-time">منذ ساعة</div>
+                </div>
+            </div>
+
+            <div class="activity-item">
+                <div class="activity-icon" style="background: rgba(220, 53, 69, 0.1); color: var(--danger)">
+                    <i class="fas fa-ban"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">تم حظر مستخدم</div>
+                    <div class="activity-time">منذ ساعتين</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" onclick="toggleSidebar()" style="display: none;">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <script>
+        // Toggle Sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+            
+            // For mobile
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('show');
+            }
+        }
+
+        // Toggle Dark Mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            
+            const icon = document.querySelector('.dark-toggle i');
+            if (isDark) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // Load Dark Mode Preference
+        window.addEventListener('DOMContentLoaded', () => {
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                const icon = document.querySelector('.dark-toggle i');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+
+            // Show mobile menu button on small screens
+            if (window.innerWidth <= 768) {
+                document.querySelector('.mobile-menu-btn').style.display = 'flex';
+            }
+        });
+
+        // Handle responsive
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768) {
+                document.querySelector('.mobile-menu-btn').style.display = 'flex';
+            } else {
+                document.querySelector('.mobile-menu-btn').style.display = 'none';
+                document.getElementById('sidebar').classList.remove('show');
+            }
+        });
+
+        // Animate stats on load
+        window.addEventListener('load', () => {
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.animation = 'scaleUp 0.6s ease-out';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

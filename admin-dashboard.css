@@ -1,0 +1,54 @@
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  background: #0f172a;
+  color: #fff;
+}
+
+.admin-main {
+  flex: 1;
+  padding: 40px;
+}
+
+.admin-card {
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 16px;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.admin-table th {
+  background: rgba(0,255,136,0.1);
+}
+
+.btn-small {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #00ff88;
+  color: #000;
+}
+
+.btn-small.danger {
+  background: #ff4444;
+  color: #fff;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 20px;
+}

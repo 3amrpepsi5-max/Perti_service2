@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>الإعدادات - النزهة 2</title>
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../css/user-dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+<main class="dashboard-main">
+
+<h1>الإعدادات</h1>
+
+<div class="card">
+
+<h3>تغيير كلمة المرور</h3>
+
+<form id="password-form">
+<input type="password" placeholder="كلمة المرور الحالية" required>
+<input type="password" placeholder="كلمة المرور الجديدة" required>
+<button class="button gradient-bg">تحديث</button>
+</form>
+
+<hr style="margin:30px 0;">
+
+<h3>الإشعارات</h3>
+<label>
+<input type="checkbox" checked>
+ تفعيل الإشعارات
+</label>
+
+</div>
+
+</main>
+</div>
+
+<script type="module">
+document.getElementById('password-form').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  alert('تم تحديث كلمة المرور');
+});
+</script>
+
+</body>
+</html>
