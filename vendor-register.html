@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="سجل محلك أو نشاطك التجاري في خدمات النزهة 2">
+    <meta name="theme-color" content="#FFD700">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="../styles.css">
+    <title>تسجيل المحلات - خدمات النزهة 2</title>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <header class="header" style="background: linear-gradient(135deg, #FFD700, #FFA500); padding: 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.3);">
+        <div class="container" style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <div class="logo" style="display: flex; align-items: center; gap: 15px;">
+                <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 15px;">
+                    <span style="font-size: 50px; animation: bounce 2s infinite;">💰</span>
+                    <div>
+                        <h1 style="color: black; font-size: 32px; margin: 0;">سجل محلك معنا</h1>
+                        <p style="color: black; font-size: 16px; margin: 0;">🚀 احصل على عملاء جدد</p>
+                    </div>
+                </a>
+            </div>
+            <a href="../index.html" class="button" style="background: black; color: #FFD700; font-size: 18px; padding: 12px 25px;">🏠 الرئيسية</a>
+        </div>
+    </header>
+
+    <div class="hero-banner gradient-bg" style="padding: 60px 20px; text-align: center;">
+        <h2 class="neon" style="font-size: 56px; color: white; margin-bottom: 20px; animation: bounce 2s infinite;">💰 سجل محلك الآن 💰</h2>
+        <p style="font-size: 28px; color: white; margin-bottom: 20px;">انضم لمئات المحلات الناجحة في المنطقة</p>
+        <p style="font-size: 24px; color: white;">✨ احصل على عملاء جدد يومياً ✨</p>
+    </div>
+
+    <div style="max-width: 900px; margin: 60px auto; padding: 20px;">
+        <div class="progress-bar" style="display: flex; justify-content: space-between; margin-bottom: 60px; position: relative;">
+            <div style="position: absolute; top: 50%; left: 0; right: 0; height: 4px; background: #ddd; z-index: 0;"></div>
+            <div id="progressFill" style="position: absolute; top: 50%; left: 0; height: 4px; background: linear-gradient(90deg, #FFD700, #FFA500); z-index: 0; width: 0%; transition: width 0.3s;"></div>
+            
+            <div class="step" id="step1Indicator" style="z-index: 1; text-align: center;">
+                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #FFD700, #FFA500); color: black; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; margin: 0 auto 10px; box-shadow: 0 5px 15px rgba(255,215,0,0.5);">1</div>
+                <p style="font-size: 18px; font-weight: bold; color: #FFD700;">بيانات المحل</p>
+            </div>
+            
+            <div class="step" id="step2Indicator" style="z-index: 1; text-align: center;">
+                <div style="width: 60px; height: 60px; border-radius: 50%; background: #ddd; color: white; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; margin: 0 auto 10px;">2</div>
+                <p style="font-size: 18px; color: #999;">الموقع</p>
+            </div>
+            
+            <div class="step" id="step3Indicator" style="z-index: 1; text-align: center;">
+                <div style="width: 60px; height: 60px; border-radius: 50%; background: #ddd; color: white; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; margin: 0 auto 10px;">3</div>
+                <p style="font-size: 18px; color: #999;">التفاصيل</p>
+            </div>
+            
+            <div class="step" id="step4Indicator" style="z-index: 1; text-align: center;">
+                <div style="width: 60px; height: 60px; border-radius: 50%; background: #ddd; color: white; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; margin: 0 auto 10px;">4</div>
+                <p style="font-size: 18px; color: #999;">الاشتراك</p>
+            </div>
+        </div>
+
+        <div class="card" style="padding: 40px;">
+            <div id="step1" class="form-step">
+                <h3 style="font-size: 36px; text-align: center; color: #FFD700; margin-bottom: 40px;">📝 بيانات المحل الأساسية</h3>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 10px;">اسم المحل *</label>
+                    <input type="text" id="shopName" placeholder="مثال: مطعم الفراخ المشوية" style="width: 100%; padding: 18px; font-size: 20px; border: 3px solid #FFD700; border-radius: 15px; text-align: right;">
+                </div>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 10px;">نوع النشاط *</label>
+                    <select id="businessType" style="width: 100%; padding: 18px; font-size: 20px; border: 3px solid #FFD700; border-radius: 15px; text-align: right;">
+                        <option value="">-- اختر نوع النشاط --</option>
+                        <option value="restaurant">🍕 مطعم</option>
+                        <option value="cafe">☕ كافيه</option>
+                        <option value="pharmacy">💊 صيدلية</option>
+                        <option value="supermarket">🏪 سوبر ماركت</option>
+                        <option value="bakery">🥖 مخبز</option>
+                        <option value="butcher">🥩 جزارة</option>
+                        <option value="electrician">🔌 كهربائي</option>
+                        <option value="plumber">🚰 سباك</option>
+                        <option value="carpenter">🪚 نجار</option>
+                        <option value="ac-service">❄️ صيانة تكييف</option>
+                        <option value="phone-shop">📱 محل موبايلات</option>
+                        <option value="clothing">👕 ملابس</option>
+                        <option value="shoes">👟 أحذية</option>
+                        <option value="accessories">💍 إكسسوارات</option>
+                        <option value="electronics">📺 إلكترونيات</option>
+                        <option value="furniture">🪑 أثاث</option>
+                        <option value="beauty">💄 تجميل</option>
+                        <option value="barber">💈 حلاق</option>
+                        <option value="gym">🏋️ جيم</option>
+                        <option value="clinic">🏥 عيادة</option>
+                        <option value="other">📌 أخرى</option>
+                    </select>
+                </div>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 10px;">رقم الهاتف *</label>
+                    <input type="tel" id="shopPhone" placeholder="01012345678" style="width: 100%; padding: 18px; font-size: 20px; border: 3px solid #FFD700; border-radius: 15px; text-align: right;">
+                </div>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 10px;">رقم الواتساب *</label>
+                    <input type="tel" id="shopWhatsapp" placeholder="01012345678" style="width: 100%; padding: 18px; font-size: 20px; border: 3px solid #FFD700; border-radius: 15px; text-align: right;">
+                </div>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 10px;">البريد الإلكتروني (اختياري)</label>
+                    <input type="email" id="shopEmail" placeholder="example@email.com" style="width: 100%; padding: 18px; font-size: 20px; border: 3px solid #FFD700; border-radius: 15px; text-align: right;">
+                </div>
+                
+                <button class="button" onclick="nextStep()" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: black; font-size: 22px; width: 100%;">التالي ➡️</button>
+            </div>
+
+            <div id="step2" class="form-step" style="display: none;">
+                <h3 style="font-size: 36px; text-align: center; color: #FFD700; margin-bottom: 40px;">📍 موقع المحل</h3>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 10px;">العنوان الكامل *</label>
+                    <textarea id="shopAddress" rows="3" placeholder="مثال: شارع النزهة الجديدة، بجوار مسجد النور، عمارة 15" style="width: 100%; padding: 18px; font-size: 20px; border: 3px solid #FFD700; border-radius: 15px; text-align: right;"></textarea>
+                </div>
+                
+                <button class="button glow" onclick="getVendorLocation()" style="background: linear-gradient(135deg, #0066FF, #0052CC); color: white; font-size: 22px; width: 100%; margin-bottom: 25px;">📍 حدد موقعك من GPS</button>
+                
+                <p style="font-size: 18px; text-align: center; margin-bottom: 15px; color: #666;">أو اضغط على الخريطة لتحديد الموقع يدوياً</p>
+                
+                <div id="vendorMap" style="height: 500px; border-radius: 15px; border: 4px solid #FFD700; margin-bottom: 25px;"></div>
+                
+                <input type="hidden" id="shopLatitude">
+                <input type="hidden" id="shopLongitude">
+                
+                <div style="display: flex; gap: 15px;">
+                    <button class="button" onclick="prevStep()" style="background: #6c757d; color: white; font-size: 20px; flex: 1;">⬅️ السابق</button>
+                    <button class="button" onclick="nextStep()" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: black; font-size: 20px; flex: 1;">التالي ➡️</button>
+                </div>
+            </div>
+
+            <div id="step3" class="form-step" style="display: none;">
+                <h3 style="font-size: 36px; text-align: center; color: #FFD700; margin-bottom: 40px;">✏️ تفاصيل المحل</h3>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 10px;">وصف المحل *</label>
+                    <textarea id="shopDescription" rows="5" placeholder="اكتب وصف شامل عن محلك والخدمات اللي بتقدمها..." style="width: 100%; padding: 18px; font-size: 20px; border: 3px solid #FFD700; border-radius: 15px; text-align: right;"></textarea>
+                </div>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 15px;">مواعيد العمل *</label>
+                    <div style="background: #f8f9fa; padding: 25px; border-radius: 15px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                            <div>
+                                <label style="font-size: 18px; display: block; margin-bottom: 8px;">من الساعة:</label>
+                                <input type="time" id="openTime" style="width: 100%; padding: 12px; font-size: 18px; border: 2px solid #FFD700; border-radius: 10px;">
+                            </div>
+                            <div>
+                                <label style="font-size: 18px; display: block; margin-bottom: 8px;">إلى الساعة:</label>
+                                <input type="time" id="closeTime" style="width: 100%; padding: 12px; font-size: 18px; border: 2px solid #FFD700; border-radius: 10px;">
+                            </div>
+                        </div>
+                        <label style="display: flex; align-items: center; gap: 10px; font-size: 20px; cursor: pointer;">
+                            <input type="checkbox" id="open24" style="width: 25px; height: 25px;">
+                            <span>مفتوح 24 ساعة</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: bold; cursor: pointer;">
+                        <input type="checkbox" id="hasDelivery" style="width: 25px; height: 25px;">
+                        <span>🏍️ يوجد خدمة توصيل</span>
+                    </label>
+                </div>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 10px;">طرق الدفع المتاحة</label>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 15px;">
+                        <label style="display: flex; align-items: center; gap: 10px; font-size: 20px; margin-bottom: 12px; cursor: pointer;">
+                            <input type="checkbox" id="cash" checked style="width: 25px; height: 25px;">
+                            <span>💵 كاش</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; font-size: 20px; margin-bottom: 12px; cursor: pointer;">
+                            <input type="checkbox" id="card" style="width: 25px; height: 25px;">
+                            <span>💳 بطاقة</span>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; font-size: 20px; cursor: pointer;">
+                            <input type="checkbox" id="mobile-wallet" style="width: 25px; height: 25px;">
+                            <span>📱 محفظة موبايل</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 15px;">
+                    <button class="button" onclick="prevStep()" style="background: #6c757d; color: white; font-size: 20px; flex: 1;">⬅️ السابق</button>
+                    <button class="button" onclick="nextStep()" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: black; font-size: 20px; flex: 1;">التالي ➡️</button>
+                </div>
+            </div>
+
+            <div id="step4" class="form-step" style="display: none;">
+                <h3 style="font-size: 36px; text-align: center; color: #FFD700; margin-bottom: 40px;">💎 اختر خطة الاشتراك</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-bottom: 40px;">
+                    <div class="card pricing-card" onclick="selectPlan('monthly', 50)" style="cursor: pointer; border: 3px solid #ddd; padding: 30px; text-align: center; transition: all 0.3s;">
+                        <div style="font-size: 60px; margin-bottom: 15px;">⭐</div>
+                        <h4 style="font-size: 28px; margin-bottom: 15px; color: #0066FF;">شهري</h4>
+                        <p style="font-size: 48px; font-weight: bold; color: #FF6600; margin-bottom: 10px;">50 ج</p>
+                        <p style="font-size: 18px; color: #666; margin-bottom: 20px;">شهر واحد</p>
+                        <ul style="list-style: none; padding: 0; text-align: right; font-size: 18px; line-height: 2;">
+                            <li>✅ ظهور في التطبيق</li>
+                            <li>✅ رقم الهاتف</li>
+                            <li>✅ واتساب</li>
+                            <li>✅ الموقع على الخريطة</li>
+                        </ul>
+                    </div>
+
+                    <div class="card pricing-card" onclick="selectPlan('quarterly', 130)" style="cursor: pointer; border: 3px solid #ddd; padding: 30px; text-align: center; transition: all 0.3s;">
+                        <div style="background: linear-gradient(135deg, #28a745, #1e7e34); color: white; padding: 5px 15px; border-radius: 20px; font-size: 16px; font-weight: bold; display: inline-block; margin-bottom: 15px;">توفير 10 ج</div>
+                        <div style="font-size: 60px; margin-bottom: 15px;">⭐⭐</div>
+                        <h4 style="font-size: 28px; margin-bottom: 15px; color: #28a745;">3 شهور</h4>
+                        <p style="font-size: 48px; font-weight: bold; color: #FF6600; margin-bottom: 10px;">130 ج</p>
+                        <p style="font-size: 18px; color: #666; margin-bottom: 20px;">3 شهور</p>
+                        <ul style="list-style: none; padding: 0; text-align: right; font-size: 18px; line-height: 2;">
+                            <li>✅ كل مميزات الشهري</li>
+                            <li>✅ أولوية في النتائج</li>
+                            <li>✅ شارة "محل موثوق"</li>
+                        </ul>
+                    </div>
+
+                    <div class="card pricing-card" onclick="selectPlan('semiannual', 240)" style="cursor: pointer; border: 3px solid #ddd; padding: 30px; text-align: center; transition: all 0.3s;">
+                        <div style="background: linear-gradient(135deg, #FF6600, #CC5200); color: white; padding: 5px 15px; border-radius: 20px; font-size: 16px; font-weight: bold; display: inline-block; margin-bottom: 15px;">توفير 60 ج</div>
+                        <div style="font-size: 60px; margin-bottom: 15px;">⭐⭐⭐</div>
+                        <h4 style="font-size: 28px; margin-bottom: 15px; color: #FF6600;">6 شهور</h4>
+                        <p style="font-size: 48px; font-weight: bold; color: #FF6600; margin-bottom: 10px;">240 ج</p>
+                        <p style="font-size: 18px; color: #666; margin-bottom: 20px;">6 شهور</p>
+                        <ul style="list-style: none; padding: 0; text-align: right; font-size: 18px; line-height: 2;">
+                            <li>✅ كل مميزات السابق</li>
+                            <li>✅ إعلان مميز</li>
+                            <li>✅ تقارير شهرية</li>
+                        </ul>
+                    </div>
+
+                    <div class="card pricing-card sparkle" onclick="selectPlan('annual', 400)" style="cursor: pointer; border: 4px solid #FFD700; padding: 30px; text-align: center; background: linear-gradient(135deg, #FFF9E6, #FFFBF0); transition: all 0.3s;">
+                        <div style="background: linear-gradient(135deg, #FF0000, #CC0000); color: white; padding: 5px 15px; border-radius: 20px; font-size: 16px; font-weight: bold; display: inline-block; margin-bottom: 15px;">🔥 الأفضل - وفر 200 ج</div>
+                        <div style="font-size: 60px; margin-bottom: 15px;">🔥</div>
+                        <h4 style="font-size: 28px; margin-bottom: 15px; color: #FF0000;">سنوي</h4>
+                        <p style="font-size: 48px; font-weight: bold; color: #FF0000; margin-bottom: 10px;">400 ج</p>
+                        <p style="font-size: 18px; color: #666; margin-bottom: 20px;">سنة كاملة</p>
+                        <ul style="list-style: none; padding: 0; text-align: right; font-size: 18px; line-height: 2;">
+                            <li>✅ كل المميزات</li>
+                            <li>✅ ظهور دائم في الصفحة الرئيسية</li>
+                            <li>✅ دعم فني مخصص</li>
+                            <li>✅ إحصائيات تفصيلية</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <input type="hidden" id="selectedPlan">
+                <input type="hidden" id="selectedPrice">
+                
+                <div style="display: flex; gap: 15px;">
+                    <button class="button" onclick="prevStep()" style="background: #6c757d; color: white; font-size: 20px; flex: 1;">⬅️ السابق</button>
+                    <button class="button sparkle glow" onclick="submitRegistration()" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; font-size: 20px; flex: 2;">📱 أرسل التسجيل واتساب</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer style="background: #1a1a1a; color: white; padding: 40px 20px; text-align: center;">
+        <p style="font-size: 18px;">© 2024 خدمات النزهة 2 - جميع الحقوق محفوظة</p>
+        <p style="font-size: 16px; margin-top: 10px;">📱 واتساب: 201068992077 | ✉️ pertipro1@gmail.com</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 500);
+            }, 1000);
+        });
+
+        let currentStep = 1;
+        let vendorMap;
+        let vendorData = {
+            shopName: '',
+            businessType: '',
+            shopPhone: '',
+            shopWhatsapp: '',
+            shopEmail: '',
+            shopAddress: '',
+            latitude: '',
+            longitude: '',
+            shopDescription: '',
+            openTime: '',
+            closeTime: '',
+            open24: false,
+            hasDelivery: false,
+            paymentMethods: [],
+            plan: '',
+            price: 0
+        };
+
+        function nextStep() {
+            if (currentStep === 1) {
+                vendorData.shopName = document.getElementById('shopName').value;
+                vendorData.businessType = document.getElementById('businessType').value;
+                vendorData.shopPhone = document.getElementById('shopPhone').value;
+                vendorData.shopWhatsapp = document.getElementById('shopWhatsapp').value;
+                vendorData.shopEmail = document.getElementById('shopEmail').value;
+                
+                if (!vendorData.shopName || !vendorData.businessType || !vendorData.shopPhone || !vendorData.shopWhatsapp) {
+                    alert('⚠️ من فضلك أكمل جميع البيانات المطلوبة');
+                    return;
+                }
+            }
+            
+            if (currentStep === 2) {
+                vendorData.shopAddress = document.getElementById('shopAddress').value;
+                vendorData.latitude = document.getElementById('shopLatitude').value;
+                vendorData.longitude = document.getElementById('shopLongitude').value;
+                
+                if (!vendorData.shopAddress || !vendorData.latitude || !vendorData.longitude) {
+                    alert('⚠️ من فضلك أدخل العنوان وحدد الموقع على الخريطة');
+                    return;
+                }
+            }
+            
+            if (currentStep === 3) {
+                vendorData.shopDescription = document.getElementById('shopDescription').value;
+                vendorData.openTime = document.getElementById('openTime').value;
+                vendorData.closeTime = document.getElementById('closeTime').value;
+                vendorData.open24 = document.getElementById('open24').checked;
+                vendorData.hasDelivery = document.getElementById('hasDelivery').checked;
+                
+                vendorData.paymentMethods = [];
+                if (document.getElementById('cash').checked) vendorData.paymentMethods.push('كاش');
+                if (document.getElementById('card').checked) vendorData.paymentMethods.push('بطاقة');
+                if (document.getElementById('mobile-wallet').checked) vendorData.paymentMethods.push('محفظة موبايل');
+                
+                if (!vendorData.shopDescription || (!vendorData.open24 && (!vendorData.openTime || !vendorData.closeTime))) {
+                    alert('⚠️ من فضلك أكمل جميع البيانات المطلوبة');
+                    return;
+                }
+            }
+            
+            if (currentStep < 4) {
+                document.getElementById('step' + currentStep).style.display = 'none';
+                currentStep++;
+                document.getElementById('step' + currentStep).style.display = 'block';
+                updateProgress();
+                
+                if (currentStep === 2 && !vendorMap) {
+                    initVendorMap();
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById('step' + currentStep).style.display = 'none';
+                currentStep--;
+                document.getElementById('step' + currentStep).style.display = 'block';
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentStep - 1) / 3) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            for (let i = 1; i <= 4; i++) {
+                const indicator = document.getElementById('step' + i + 'Indicator');
+                const circle = indicator.querySelector('div');
+                const text = indicator.querySelector('p');
+                
+                if (i <= currentStep) {
+                    circle.style.background = 'linear-gradient(135deg, #FFD700, #FFA500)';
+                    circle.style.color = 'black';
+                    circle.style.boxShadow = '0 5px 15px rgba(255,215,0,0.5)';
+                    text.style.color = '#FFD700';
+                    text.style.fontWeight = 'bold';
+                } else {
+                    circle.style.background = '#ddd';
+                    circle.style.color = 'white';
+                    circle.style.boxShadow = 'none';
+                    text.style.color = '#999';
+                    text.style.fontWeight = 'normal';
+                }
+            }
+        }
+
+        function initVendorMap() {
+            vendorMap = L.map('vendorMap').setView([30.1370, 31.3830], 14);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap',
+                maxZoom: 19
+            }).addTo(vendorMap);
+            
+            const zoneCoords = [
+                [30.129037, 31.366778],
+                [30.142056, 31.400042],
+                [30.152516, 31.381158],
+                [30.139785, 31.359266],
+                [30.129037, 31.366778]
+            ];
+            
+            L.polygon(zoneCoords, {
+                color: '#FF0000',
+                fillColor: '#FFD700',
+                fillOpacity: 0.2,
+                weight: 4
+            }).addTo(vendorMap);
+            
+            vendorMap.on('click', function(e) {
+                document.getElementById('shopLatitude').value = e.latlng.lat;
+                document.getElementById('shopLongitude').value = e.latlng.lng;
+                
+                if (window.vendorMarker) {
+                    vendorMap.removeLayer(window.vendorMarker);
+                }
+                
+                window.vendorMarker = L.marker([e.latlng.lat, e.latlng.lng], {
+                    icon: L.divIcon({
+                        html: '<div style="background: #FFD700; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.4);">🏪</div>',
+                        className: 'vendor-marker',
+                        iconSize: [50, 50]
+                    })
+                }).addTo(vendorMap);
+                
+                alert('✅ تم تحديد الموقع بنجاح!');
+            });
+        }
+
+        function getVendorLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    
+                    document.getElementById('shopLatitude').value = lat;
+                    document.getElementById('shopLongitude').value = lng;
+                    
+                    if (vendorMap) {
+                        vendorMap.setView([lat, lng], 16);
+                        
+                        if (window.vendorMarker) {
+                            vendorMap.removeLayer(window.vendorMarker);
+                        }
+                        
+                        window.vendorMarker = L.marker([lat, lng], {
+                            icon: L.divIcon({
+                                html: '<div style="background: #FFD700; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.4);">🏪</div>',
+                                className: 'vendor-marker',
+                                iconSize: [50, 50]
+                            })
+                        }).addTo(vendorMap);
+                    }
+                    
+                    alert('✅ تم تحديد موقعك بنجاح!');
+                }, () => {
+                    alert('⚠️ لم نتمكن من تحديد موقعك. من فضلك اضغط على الخريطة لتحديد الموقع يدوياً.');
+                });
+            } else {
+                alert('⚠️ المتصفح لا يدعم تحديد الموقع');
+            }
+        }
+
+        function selectPlan(plan, price) {
+            document.getElementById('selectedPlan').value = plan;
+            document.getElementById('selectedPrice').value = price;
+            vendorData.plan = plan;
+            vendorData.price = price;
+            
+            document.querySelectorAll('.pricing-card').forEach(card => {
+                card.style.transform = 'scale(1)';
+                card.style.borderColor = '#ddd';
+            });
+            
+            event.currentTarget.style.transform = 'scale(1.05)';
+            event.currentTarget.style.borderColor = '#FFD700';
+            event.currentTarget.style.boxShadow = '0 15px 40px rgba(255,215,0,0.4)';
+        }
+
+        function submitRegistration() {
+            if (!vendorData.plan || !vendorData.price) {
+                alert('⚠️ من فضلك اختر خطة الاشتراك');
+                return;
+            }
+            
+            const planNames = {
+                'monthly': 'شهري - 50 ج',
+                'quarterly': '3 شهور - 130 ج',
+                'semiannual': '6 شهور - 240 ج',
+                'annual': 'سنوي - 400 ج (الأفضل)'
+            };
+            
+            const businessTypes = {
+                'restaurant': '🍕 مطعم',
+                'cafe': '☕ كافيه',
+                'pharmacy': '💊 صيدلية',
+                'supermarket': '🏪 سوبر ماركت',
+                'electrician': '🔌 كهربائي',
+                'plumber': '🚰 سباك'
+            };
+            
+            const message = `
+🔥 تسجيل محل جديد 🔥
+
+📝 بيانات المحل:
+الاسم: ${vendorData.shopName}
+النوع: ${businessTypes[vendorData.businessType] || vendorData.businessType}
+الهاتف: ${vendorData.shopPhone}
+واتساب: ${vendorData.shopWhatsapp}
+${vendorData.shopEmail ? 'البريد: ' + vendorData.shopEmail : ''}
+
+📍 الموقع:
+العنوان: ${vendorData.shopAddress}
+خريطة: https://www.google.com/maps?q=${vendorData.latitude},${vendorData.longitude}
+
+✏️ التفاصيل:
+${vendorData.shopDescription}
+
+⏰ مواعيد العمل: ${vendorData.open24 ? '24 ساعة' : vendorData.openTime + ' - ' + vendorData.closeTime}
+🏍️ توصيل: ${vendorData.hasDelivery ? 'نعم' : 'لا'}
+💳 طرق الدفع: ${vendorData.paymentMethods.join(', ')}
+
+💰 خطة الاشتراك المختارة:
+${planNames[vendorData.plan]}
+
+---
+من تطبيق خدمات النزهة 2
+            `.trim();
+            
+            const phone = "201068992077";
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>

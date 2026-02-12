@@ -1,0 +1,361 @@
+/*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌙 Dark Mode Styles
+أنماط الوضع الليلي - نزهة 2
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+*/
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 1️⃣ DARK MODE VARIABLES */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+:root {
+  --dark-bg-primary: #0d1117;
+  --dark-bg-secondary: #161b22;
+  --dark-bg-tertiary: #21262d;
+  --dark-border: #30363d;
+  --dark-text-primary: #c9d1d9;
+  --dark-text-secondary: #8b949e;
+  --dark-text-link: #58a6ff;
+  --dark-shadow: rgba(0, 0, 0, 0.4);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 2️⃣ DARK MODE ACTIVATION */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+body.dark-mode {
+  background-color: var(--dark-bg-primary);
+  color: var(--dark-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 3️⃣ COMPONENTS */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Header */
+body.dark-mode header {
+  background-color: var(--dark-bg-secondary);
+  border-bottom: 1px solid var(--dark-border);
+}
+
+body.dark-mode header h1,
+body.dark-mode header nav a {
+  color: var(--dark-text-primary);
+}
+
+/* Cards */
+body.dark-mode .service-card,
+body.dark-mode .vendor-card,
+body.dark-mode .card {
+  background-color: var(--dark-bg-secondary);
+  border: 1px solid var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+body.dark-mode .service-card:hover,
+body.dark-mode .vendor-card:hover {
+  background-color: var(--dark-bg-tertiary);
+  box-shadow: 0 8px 16px var(--dark-shadow);
+}
+
+/* Buttons */
+body.dark-mode button,
+body.dark-mode .btn {
+  background-color: var(--dark-bg-tertiary);
+  color: var(--dark-text-primary);
+  border: 1px solid var(--dark-border);
+}
+
+body.dark-mode button:hover,
+body.dark-mode .btn:hover {
+  background-color: var(--dark-bg-secondary);
+}
+
+body.dark-mode .btn-primary {
+  background-color: #238636;
+  border-color: #238636;
+}
+
+body.dark-mode .btn-primary:hover {
+  background-color: #2ea043;
+}
+
+/* Forms */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background-color: var(--dark-bg-tertiary);
+  border: 1px solid var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+body.dark-mode input:focus,
+body.dark-mode textarea:focus,
+body.dark-mode select:focus {
+  border-color: var(--dark-text-link);
+  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: var(--dark-text-secondary);
+}
+
+/* Links */
+body.dark-mode a {
+  color: var(--dark-text-link);
+}
+
+body.dark-mode a:hover {
+  color: #79c0ff;
+}
+
+/* Footer */
+body.dark-mode footer {
+  background-color: var(--dark-bg-secondary);
+  border-top: 1px solid var(--dark-border);
+  color: var(--dark-text-secondary);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 4️⃣ SPECIFIC PAGES */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/* Vendor Details */
+body.dark-mode .vendor-header {
+  background-color: var(--dark-bg-secondary);
+  border: 1px solid var(--dark-border);
+}
+
+body.dark-mode .vendor-info h2,
+body.dark-mode .vendor-info h3 {
+  color: var(--dark-text-primary);
+}
+
+body.dark-mode .vendor-stats {
+  background-color: var(--dark-bg-tertiary);
+  border: 1px solid var(--dark-border);
+}
+
+/* Reviews */
+body.dark-mode .review-card {
+  background-color: var(--dark-bg-tertiary);
+  border: 1px solid var(--dark-border);
+}
+
+body.dark-mode .review-author {
+  color: var(--dark-text-primary);
+}
+
+body.dark-mode .review-text {
+  color: var(--dark-text-secondary);
+}
+
+/* Tables */
+body.dark-mode table {
+  background-color: var(--dark-bg-secondary);
+  border: 1px solid var(--dark-border);
+}
+
+body.dark-mode th {
+  background-color: var(--dark-bg-tertiary);
+  color: var(--dark-text-primary);
+  border-bottom: 2px solid var(--dark-border);
+}
+
+body.dark-mode td {
+  border-bottom: 1px solid var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+body.dark-mode tr:hover {
+  background-color: var(--dark-bg-tertiary);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 5️⃣ DARK MODE TOGGLE BUTTON */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--dark-bg-tertiary);
+  border: 2px solid var(--dark-border);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 8px var(--dark-shadow);
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px var(--dark-shadow);
+}
+
+body.dark-mode .dark-mode-toggle {
+  background-color: #238636;
+  border-color: #238636;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 6️⃣ MODAL & POPUPS */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+body.dark-mode .modal {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .modal-content {
+  background-color: var(--dark-bg-secondary);
+  border: 1px solid var(--dark-border);
+}
+
+body.dark-mode .modal-header {
+  border-bottom: 1px solid var(--dark-border);
+  color: var(--dark-text-primary);
+}
+
+body.dark-mode .modal-footer {
+  border-top: 1px solid var(--dark-border);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 7️⃣ SCROLLBAR */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+body.dark-mode::-webkit-scrollbar {
+  width: 10px;
+}
+
+body.dark-mode::-webkit-scrollbar-track {
+  background: var(--dark-bg-primary);
+}
+
+body.dark-mode::-webkit-scrollbar-thumb {
+  background: var(--dark-bg-tertiary);
+  border-radius: 5px;
+}
+
+body.dark-mode::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-border);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 8️⃣ BADGES & CHIPS */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+body.dark-mode .badge,
+body.dark-mode .chip {
+  background-color: var(--dark-bg-tertiary);
+  color: var(--dark-text-primary);
+  border: 1px solid var(--dark-border);
+}
+
+body.dark-mode .badge-success {
+  background-color: #1a7f37;
+  border-color: #1a7f37;
+}
+
+body.dark-mode .badge-warning {
+  background-color: #9a6700;
+  border-color: #9a6700;
+}
+
+body.dark-mode .badge-danger {
+  background-color: #da3633;
+  border-color: #da3633;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 9️⃣ IMAGES & MEDIA */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+body.dark-mode img {
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+body.dark-mode img:hover {
+  opacity: 1;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🔟 CODE BLOCKS */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+body.dark-mode code,
+body.dark-mode pre {
+  background-color: var(--dark-bg-tertiary);
+  color: #79c0ff;
+  border: 1px solid var(--dark-border);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* ✨ TRANSITION FOR ALL ELEMENTS */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+body.dark-mode * {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 📱 RESPONSIVE */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (max-width: 768px) {
+  .dark-mode-toggle {
+    bottom: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+/* 🎨 JavaScript Toggle Function */
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+/*
+// إضافة هذا الكود في ملف scripts.js
+
+function toggleDarkMode() {
+  const body = document.body;
+  body.classList.toggle('dark-mode');
+  
+  // حفظ التفضيل
+  const isDarkMode = body.classList.contains('dark-mode');
+  localStorage.setItem('darkMode', isDarkMode);
+  
+  // تغيير الأيقونة
+  const toggle = document.querySelector('.dark-mode-toggle');
+  toggle.textContent = isDarkMode ? '☀️' : '🌙';
+}
+
+// تحميل التفضيل عند بدء التطبيق
+document.addEventListener('DOMContentLoaded', () => {
+  const isDarkMode = localStorage.getItem('darkMode') === 'true';
+  if (isDarkMode) {
+    document.body.classList.add('dark-mode');
+  }
+  
+  // إنشاء زر التبديل
+  const toggle = document.createElement('button');
+  toggle.className = 'dark-mode-toggle';
+  toggle.textContent = isDarkMode ? '☀️' : '🌙';
+  toggle.onclick = toggleDarkMode;
+  document.body.appendChild(toggle);
+});
+*/

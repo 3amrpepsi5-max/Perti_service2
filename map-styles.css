@@ -1,0 +1,61 @@
+#map-container {
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,255,136,0.4);
+}
+
+.custom-marker {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  transition: transform .3s;
+}
+
+.custom-marker:hover {
+  transform: scale(1.2);
+}
+
+.marker-icon {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg,#00ff88,#00cc6f);
+  border-radius: 50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  box-shadow:0 0 20px #00ff88;
+}
+
+.marker-pulse {
+  position:absolute;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:rgba(0,255,136,.5);
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%{transform:scale(1);opacity:1}
+  100%{transform:scale(2);opacity:0}
+}
+
+.zone-warning-modal {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.zone-warning-content {
+  background:#111;
+  padding:40px;
+  border-radius:20px;
+  text-align:center;
+  color:#fff;
+}

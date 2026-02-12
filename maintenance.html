@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="خدمات الصيانة والحرفيين في منطقة النزهة 2">
+    <meta name="theme-color" content="#FF6600">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="../styles.css">
+    <title>الصيانة والحرفيين - خدمات النزهة 2</title>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <header class="header" style="background: linear-gradient(135deg, #FF6600, #CC5200); padding: 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.3);">
+        <div class="container" style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <div class="logo" style="display: flex; align-items: center; gap: 15px;">
+                <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 15px;">
+                    <span style="font-size: 50px; animation: bounce 2s infinite;">🔧</span>
+                    <div>
+                        <h1 style="color: white; font-size: 32px; margin: 0;">الصيانة والحرفيين</h1>
+                        <p style="color: white; font-size: 16px; margin: 0;">🛠️ كل الحرفيين في مكان واحد</p>
+                    </div>
+                </a>
+            </div>
+            <nav style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <a href="../index.html" class="button" style="background: white; color: #FF6600; font-size: 18px; padding: 12px 25px;">🏠 الرئيسية</a>
+                <a href="delivery.html" class="button" style="background: white; color: #00CC00; font-size: 18px; padding: 12px 25px;">🏍️ توصيل</a>
+                <a href="emergency.html" class="button" style="background: white; color: #FF0000; font-size: 18px; padding: 12px 25px;">🚑 طوارئ</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero-banner" style="background: linear-gradient(135deg, #FF6600, #CC5200); padding: 60px 20px; text-align: center;">
+        <h2 class="neon" style="font-size: 56px; color: white; margin-bottom: 20px; animation: bounce 2s infinite;">🔧 خدمات الصيانة والحرفيين 🔧</h2>
+        <p style="font-size: 28px; color: white; margin-bottom: 30px;">ابحث عن أفضل الحرفيين في منطقتك</p>
+    </div>
+
+    <section style="max-width: 1400px; margin: 60px auto; padding: 20px;">
+        <h3 style="font-size: 48px; text-align: center; margin-bottom: 50px; color: #FF6600;">اختار الخدمة اللي محتاجها</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            <a href="javascript:void(0)" onclick="contactService('كهربائي', '🔌')" class="card" style="cursor: pointer; background: linear-gradient(135deg, #FFD700, #FFA500); color: black; text-decoration: none; padding: 30px; text-align: center; min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 80px; margin-bottom: 15px;">🔌</div>
+                <h4 style="font-size: 24px; margin-bottom: 10px;">كهربائي</h4>
+                <p style="font-size: 18px; margin-bottom: 10px;">15 فني متاح</p>
+                <span class="button" style="background: white; color: #FFD700; font-size: 18px; margin-top: auto;">ابحث الآن</span>
+            </a>
+
+            <a href="javascript:void(0)" onclick="contactService('سباك', '🚰')" class="card" style="cursor: pointer; background: linear-gradient(135deg, #0066FF, #0052CC); color: white; text-decoration: none; padding: 30px; text-align: center; min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 80px; margin-bottom: 15px;">🚰</div>
+                <h4 style="font-size: 24px; margin-bottom: 10px;">سباك</h4>
+                <p style="font-size: 18px; margin-bottom: 10px;">12 فني متاح</p>
+                <span class="button" style="background: white; color: #0066FF; font-size: 18px; margin-top: auto;">ابحث الآن</span>
+            </a>
+
+            <a href="javascript:void(0)" onclick="contactService('نجار', '🪚')" class="card" style="cursor: pointer; background: linear-gradient(135deg, #8B4513, #654321); color: white; text-decoration: none; padding: 30px; text-align: center; min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 80px; margin-bottom: 15px;">🪚</div>
+                <h4 style="font-size: 24px; margin-bottom: 10px;">نجار</h4>
+                <p style="font-size: 18px; margin-bottom: 10px;">10 فني متاح</p>
+                <span class="button" style="background: white; color: #8B4513; font-size: 18px; margin-top: auto;">ابحث الآن</span>
+            </a>
+
+            <a href="javascript:void(0)" onclick="contactService('تكييف', '❄️')" class="card" style="cursor: pointer; background: linear-gradient(135deg, #00CED1, #008B8B); color: white; text-decoration: none; padding: 30px; text-align: center; min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 80px; margin-bottom: 15px;">❄️</div>
+                <h4 style="font-size: 24px; margin-bottom: 10px;">تكييف</h4>
+                <p style="font-size: 18px; margin-bottom: 10px;">8 فني متاح</p>
+                <span class="button" style="background: white; color: #00CED1; font-size: 18px; margin-top: auto;">ابحث الآن</span>
+            </a>
+
+            <a href="javascript:void(0)" onclick="contactService('دش', '📡')" class="card" style="cursor: pointer; background: linear-gradient(135deg, #808080, #696969); color: white; text-decoration: none; padding: 30px; text-align: center; min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 80px; margin-bottom: 15px;">📡</div>
+                <h4 style="font-size: 24px; margin-bottom: 10px;">دش</h4>
+                <p style="font-size: 18px; margin-bottom: 10px;">6 فني متاح</p>
+                <span class="button" style="background: white; color: #808080; font-size: 18px; margin-top: auto;">ابحث الآن</span>
+            </a>
+
+            <a href="javascript:void(0)" onclick="contactService('دهان', '🎨')" class="card" style="cursor: pointer; background: linear-gradient(135deg, #32CD32, #228B22); color: white; text-decoration: none; padding: 30px; text-align: center; min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 80px; margin-bottom: 15px;">🎨</div>
+                <h4 style="font-size: 24px; margin-bottom: 10px;">دهان</h4>
+                <p style="font-size: 18px; margin-bottom: 10px;">9 فني متاح</p>
+                <span class="button" style="background: white; color: #32CD32; font-size: 18px; margin-top: auto;">ابحث الآن</span>
+            </a>
+
+            <a href="javascript:void(0)" onclick="contactService('بناء', '🧱')" class="card" style="cursor: pointer; background: linear-gradient(135deg, #FF6600, #CC5200); color: white; text-decoration: none; padding: 30px; text-align: center; min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 80px; margin-bottom: 15px;">🧱</div>
+                <h4 style="font-size: 24px; margin-bottom: 10px;">بناء</h4>
+                <p style="font-size: 18px; margin-bottom: 10px;">7 فني متاح</p>
+                <span class="button" style="background: white; color: #FF6600; font-size: 18px; margin-top: auto;">ابحث الآن</span>
+            </a>
+
+            <a href="javascript:void(0)" onclick="contactService('حداد', '🔩')" class="card" style="cursor: pointer; background: linear-gradient(135deg, #708090, #2F4F4F); color: white; text-decoration: none; padding: 30px; text-align: center; min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 80px; margin-bottom: 15px;">🔩</div>
+                <h4 style="font-size: 24px; margin-bottom: 10px;">حداد</h4>
+                <p style="font-size: 18px; margin-bottom: 10px;">5 فني متاح</p>
+                <span class="button" style="background: white; color: #708090; font-size: 18px; margin-top: auto;">ابحث الآن</span>
+            </a>
+
+            <a href="javascript:void(0)" onclick="contactService('ألوميتال', '🪟')" class="card" style="cursor: pointer; background: linear-gradient(135deg, #C0C0C0, #A9A9A9); color: black; text-decoration: none; padding: 30px; text-align: center; min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 80px; margin-bottom: 15px;">🪟</div>
+                <h4 style="font-size: 24px; margin-bottom: 10px;">ألوميتال</h4>
+                <p style="font-size: 18px; margin-bottom: 10px;">6 فني متاح</p>
+                <span class="button" style="background: white; color: #A9A9A9; font-size: 18px; margin-top: auto;">ابحث الآن</span>
+            </a>
+
+            <a href="javascript:void(0)" onclick="contactService('نقل أثاث', '🏠')" class="card" style="cursor: pointer; background: linear-gradient(135deg, #9933FF, #7A29CC); color: white; text-decoration: none; padding: 30px; text-align: center; min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 80px; margin-bottom: 15px;">🏠</div>
+                <h4 style="font-size: 24px; margin-bottom: 10px;">نقل أثاث</h4>
+                <p style="font-size: 18px; margin-bottom: 10px;">4 شركة متاحة</p>
+                <span class="button" style="background: white; color: #9933FF; font-size: 18px; margin-top: auto;">ابحث الآن</span>
+            </a>
+
+            <a href="javascript:void(0)" onclick="contactService('نظافة', '🧹')" class="card" style="cursor: pointer; background: linear-gradient(135deg, #FF1493, #C71585); color: white; text-decoration: none; padding: 30px; text-align: center; min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 80px; margin-bottom: 15px;">🧹</div>
+                <h4 style="font-size: 24px; margin-bottom: 10px;">نظافة</h4>
+                <p style="font-size: 18px; margin-bottom: 10px;">11 شركة متاحة</p>
+                <span class="button" style="background: white; color: #FF1493; font-size: 18px; margin-top: auto;">ابحث الآن</span>
+            </a>
+
+            <a href="javascript:void(0)" onclick="contactService('كهرباء سيارات', '⚡')" class="card" style="cursor: pointer; background: linear-gradient(135deg, #FF0000, #CC0000); color: white; text-decoration: none; padding: 30px; text-align: center; min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+                <div style="font-size: 80px; margin-bottom: 15px;">⚡</div>
+                <h4 style="font-size: 24px; margin-bottom: 10px;">كهرباء سيارات</h4>
+                <p style="font-size: 18px; margin-bottom: 10px;">8 فني متاح</p>
+                <span class="button" style="background: white; color: #FF0000; font-size: 18px; margin-top: auto;">ابحث الآن</span>
+            </a>
+        </div>
+    </section>
+
+    <footer style="background: #1a1a1a; color: white; padding: 40px 20px; text-align: center;">
+        <p style="font-size: 18px;">© 2024 خدمات النزهة 2 - جميع الحقوق محفوظة</p>
+        <p style="font-size: 16px; margin-top: 10px;">📱 واتساب: 201068992077 | ✉️ pertipro1@gmail.com</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 500);
+            }, 1000);
+        });
+
+        function contactService(serviceName, emoji) {
+            const message = `
+${emoji} طلب خدمة ${serviceName} ${emoji}
+
+السلام عليكم، أنا محتاج ${serviceName} في منطقة النزهة 2.
+
+الرجاء التواصل معي لتحديد الموعد والسعر.
+
+شكراً
+---
+من تطبيق خدمات النزهة 2
+            `.trim();
+            
+            const phone = "201068992077";
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+/**
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ * 🎨 Extended Styles for Authentication Pages
+ * أنماط إضافية لصفحات المصادقة
+ * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ * 
+ * ملاحظة: هذا الملف اختياري ويحتوي على تحسينات إضافية فقط
+ * يمكنك إضافته بعد styles.css أو دمجه معه
+ */
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   VERIFICATION CODE INPUT ENHANCEMENTS
+   تحسينات حقول إدخال كود التحقق
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.code-digit {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.code-digit:focus {
+    outline: none;
+    border-color: var(--primary-orange) !important;
+    box-shadow: 0 0 20px rgba(255, 102, 0, 0.5);
+    transform: scale(1.05);
+}
+
+.code-digit:valid {
+    border-color: var(--success) !important;
+    background: linear-gradient(135deg, #ffffff, #e8f5e9);
+}
+
+.code-digit.error {
+    border-color: var(--danger) !important;
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   INPUT FIELD ENHANCEMENTS
+   تحسينات حقول الإدخال
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"] {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus {
+    outline: none;
+    border-color: var(--primary-orange) !important;
+    box-shadow: 0 0 20px rgba(255, 102, 0, 0.3);
+    transform: scale(1.02);
+}
+
+input[type="text"].valid,
+input[type="email"].valid,
+input[type="password"].valid,
+input[type="tel"].valid {
+    border-color: var(--success) !important;
+}
+
+input[type="text"].invalid,
+input[type="email"].invalid,
+input[type="password"].invalid,
+input[type="tel"].invalid {
+    border-color: var(--danger) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PASSWORD STRENGTH INDICATOR
+   مؤشر قوة كلمة المرور
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.password-strength {
+    height: 5px;
+    border-radius: 10px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.password-strength.weak {
+    background: linear-gradient(90deg, var(--danger), transparent);
+    width: 33%;
+}
+
+.password-strength.medium {
+    background: linear-gradient(90deg, var(--warning), transparent);
+    width: 66%;
+}
+
+.password-strength.strong {
+    background: linear-gradient(90deg, var(--success), transparent);
+    width: 100%;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TIMER ANIMATIONS
+   رسوم متحركة للمؤقت
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+#timer {
+    display: inline-block;
+    animation: pulse 2s infinite;
+}
+
+#timer.warning {
+    color: var(--warning) !important;
+    animation: pulse 1s infinite;
+}
+
+#timer.danger {
+    color: var(--danger) !important;
+    animation: pulse 0.5s infinite;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   CHECKBOX CUSTOM STYLING
+   تنسيق مربعات الاختيار
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 3px solid var(--primary-orange);
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+input[type="checkbox"]:checked {
+    background: var(--primary-orange);
+    position: relative;
+}
+
+input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+input[type="checkbox"]:hover {
+    box-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+    transform: scale(1.1);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   SUCCESS MESSAGE ANIMATION
+   رسوم متحركة لرسالة النجاح
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.success-message {
+    animation: success-slide-in 0.6s ease;
+}
+
+@keyframes success-slide-in {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.8);
+    }
+    50% {
+        transform: translateY(10px) scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   LOADING BUTTON STATE
+   حالة الزر أثناء التحميل
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.button.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.button.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: rotate 1s linear infinite;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   TOOLTIP STYLES
+   أنماط تلميحات الأدوات
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.tooltip {
+    position: relative;
+}
+
+.tooltip::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    margin-bottom: 4px;
+}
+
+.tooltip:hover::before,
+.tooltip:hover::after {
+    opacity: 1;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE ADJUSTMENTS FOR VERIFICATION PAGE
+   تعديلات متجاوبة لصفحة التحقق
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media (max-width: 768px) {
+    .code-digit {
+        width: 50px !important;
+        height: 60px !important;
+        font-size: 28px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .code-digit {
+        width: 40px !important;
+        height: 50px !important;
+        font-size: 24px !important;
+    }
+    
+    .code-input-container {
+        gap: 5px !important;
+    }
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   DISABLED STATE IMPROVEMENTS
+   تحسينات للحالة المعطلة
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+button:disabled,
+input:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    filter: grayscale(0.5);
+}
+
+button:disabled:hover {
+    transform: none !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ERROR MESSAGE STYLING
+   تنسيق رسائل الخطأ
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.error-message {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin: 10px 0;
+    font-size: 16px;
+    text-align: center;
+    animation: shake 0.5s;
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
+}
+
+.success-alert {
+    background: linear-gradient(135deg, #28a745, #1e7e34);
+    color: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin: 10px 0;
+    font-size: 16px;
+    text-align: center;
+    animation: success-slide-in 0.6s ease;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   LINK HOVER EFFECTS
+   تأثيرات الروابط عند التمرير
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+a {
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    transform: translateX(-3px);
+    text-shadow: 0 0 10px currentColor;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PRINT STYLES (للطباعة)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+@media print {
+    .gradient-bg {
+        background: white !important;
+    }
+    
+    .button,
+    .loading-screen {
+        display: none !important;
+    }
+    
+    .login-box {
+        box-shadow: none !important;
+    }
+}

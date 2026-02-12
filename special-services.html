@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="خدمات خاصة: عقارات، وظائف، إعلانات في النزهة 2">
+    <meta name="theme-color" content="#0066FF">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="../styles.css">
+    <title>خدمات خاصة - خدمات النزهة 2</title>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <header class="header" style="background: linear-gradient(135deg, #0066FF, #0052CC); padding: 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.3);">
+        <div class="container" style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <div class="logo" style="display: flex; align-items: center; gap: 15px;">
+                <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 15px;">
+                    <span style="font-size: 50px; animation: bounce 2s infinite;">💼</span>
+                    <div>
+                        <h1 style="color: white; font-size: 32px; margin: 0;">خدمات خاصة</h1>
+                        <p style="color: white; font-size: 16px; margin: 0;">🏠 عقارات | 💼 وظائف | 📢 إعلانات</p>
+                    </div>
+                </a>
+            </div>
+            <nav style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <a href="../index.html" class="button" style="background: white; color: #0066FF; font-size: 18px; padding: 12px 25px;">🏠 الرئيسية</a>
+                <a href="delivery.html" class="button" style="background: white; color: #00CC00; font-size: 18px; padding: 12px 25px;">🏍️ توصيل</a>
+                <a href="maintenance.html" class="button" style="background: white; color: #FF6600; font-size: 18px; padding: 12px 25px;">🔧 صيانة</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero-banner" style="background: linear-gradient(135deg, #0066FF, #0052CC); padding: 60px 20px; text-align: center;">
+        <h2 class="neon" style="font-size: 56px; color: white; margin-bottom: 20px; animation: bounce 2s infinite;">💼 خدمات خاصة 💼</h2>
+        <p style="font-size: 28px; color: white; margin-bottom: 30px;">عقارات، وظائف، وإعلانات متنوعة</p>
+    </div>
+
+    <div style="max-width: 1400px; margin: 60px auto; padding: 20px;">
+        <div class="tabs" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 50px;">
+            <button class="tab-btn active" onclick="showTab('real-estate')" style="background: linear-gradient(135deg, #FF6600, #CC5200); color: white; border: none; padding: 18px 35px; border-radius: 30px; font-size: 22px; cursor: pointer; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">🏠 عقارات</button>
+            <button class="tab-btn" onclick="showTab('jobs')" style="background: #ddd; color: black; border: none; padding: 18px 35px; border-radius: 30px; font-size: 22px; cursor: pointer; font-weight: bold;">💼 وظائف</button>
+            <button class="tab-btn" onclick="showTab('shops')" style="background: #ddd; color: black; border: none; padding: 18px 35px; border-radius: 30px; font-size: 22px; cursor: pointer; font-weight: bold;">🏪 محلات للبيع</button>
+            <button class="tab-btn" onclick="showTab('moving')" style="background: #ddd; color: black; border: none; padding: 18px 35px; border-radius: 30px; font-size: 22px; cursor: pointer; font-weight: bold;">🚛 نقل وشحن</button>
+            <button class="tab-btn" onclick="showTab('ads')" style="background: #ddd; color: black; border: none; padding: 18px 35px; border-radius: 30px; font-size: 22px; cursor: pointer; font-weight: bold;">📢 إعلانات</button>
+        </div>
+
+        <div id="real-estate" class="tab-content">
+            <div style="margin-bottom: 30px; text-align: center;">
+                <button class="button sparkle" onclick="window.open('https://wa.me/201068992077?text=أريد نشر إعلان عقار', '_blank')" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: black; font-size: 22px; padding: 20px 40px;">➕ أضف إعلان عقار</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+                <div class="card">
+                    <div style="width: 100%; height: 250px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-size: 80px;">🏠</div>
+                    <div style="background: linear-gradient(135deg, #00FF00, #00CC00); color: white; padding: 8px 15px; border-radius: 20px; font-size: 16px; font-weight: bold; display: inline-block; margin-bottom: 15px;">للبيع</div>
+                    <h4 style="font-size: 28px; color: #0066FF; margin-bottom: 10px;">شقة 3 غرف للبيع</h4>
+                    <p style="font-size: 20px; margin-bottom: 10px;">📐 المساحة: 120 متر</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">🛏️ 3 غرف | 🚿 2 حمام</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">🏢 الدور: الثالث</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">📍 شارع النزهة الجديدة</p>
+                    <p style="font-size: 32px; font-weight: bold; color: #FF6600; margin-bottom: 20px;">💰 850,000 جنيه</p>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="https://wa.me/201068992077?text=استفسار عن شقة 3 غرف" class="button" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; flex: 1; font-size: 18px;">💬 استفسار</a>
+                        <button class="button" style="background: linear-gradient(135deg, #0066FF, #0052CC); color: white; flex: 1; font-size: 18px;">👁️ التفاصيل</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="width: 100%; height: 250px; background: linear-gradient(135deg, #f093fb, #f5576c); border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-size: 80px;">🏪</div>
+                    <div style="background: linear-gradient(135deg, #FFD700, #FFA500); color: black; padding: 8px 15px; border-radius: 20px; font-size: 16px; font-weight: bold; display: inline-block; margin-bottom: 15px;">للإيجار</div>
+                    <h4 style="font-size: 28px; color: #0066FF; margin-bottom: 10px;">محل تجاري للإيجار</h4>
+                    <p style="font-size: 20px; margin-bottom: 10px;">📐 المساحة: 50 متر</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">🏢 الدور: الأرضي</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">📍 جسر السويس الرئيسي</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">✨ واجهة زجاجية</p>
+                    <p style="font-size: 32px; font-weight: bold; color: #FF6600; margin-bottom: 20px;">💰 3,500 ج/شهر</p>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="https://wa.me/201068992077?text=استفسار عن محل للإيجار" class="button" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; flex: 1; font-size: 18px;">💬 استفسار</a>
+                        <button class="button" style="background: linear-gradient(135deg, #0066FF, #0052CC); color: white; flex: 1; font-size: 18px;">👁️ التفاصيل</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="width: 100%; height: 250px; background: linear-gradient(135deg, #4facfe, #00f2fe); border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-size: 80px;">🏗️</div>
+                    <div style="background: linear-gradient(135deg, #00FF00, #00CC00); color: white; padding: 8px 15px; border-radius: 20px; font-size: 16px; font-weight: bold; display: inline-block; margin-bottom: 15px;">للبيع</div>
+                    <h4 style="font-size: 28px; color: #0066FF; margin-bottom: 10px;">أرض للبيع</h4>
+                    <p style="font-size: 20px; margin-bottom: 10px;">📐 المساحة: 200 متر</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">📍 منطقة النزهة 2</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">✨ شارع رئيسي</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">📜 أوراق رسمية كاملة</p>
+                    <p style="font-size: 32px; font-weight: bold; color: #FF6600; margin-bottom: 20px;">💰 600,000 جنيه</p>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="https://wa.me/201068992077?text=استفسار عن أرض للبيع" class="button" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; flex: 1; font-size: 18px;">💬 استفسار</a>
+                        <button class="button" style="background: linear-gradient(135deg, #0066FF, #0052CC); color: white; flex: 1; font-size: 18px;">👁️ التفاصيل</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="jobs" class="tab-content" style="display: none;">
+            <div style="margin-bottom: 30px; text-align: center;">
+                <button class="button sparkle" onclick="window.open('https://wa.me/201068992077?text=أريد نشر إعلان وظيفة', '_blank')" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: black; font-size: 22px; padding: 20px 40px;">➕ أضف إعلان وظيفة</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h4 style="font-size: 28px; color: #0066FF;">مطلوب موظف مبيعات</h4>
+                        <span style="background: linear-gradient(135deg, #00FF00, #00CC00); color: white; padding: 8px 15px; border-radius: 20px; font-size: 16px; font-weight: bold;">متاح الآن</span>
+                    </div>
+                    <p style="font-size: 20px; margin-bottom: 10px;">🏢 الشركة: مجموعة النزهة التجارية</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">💰 المرتب: 4000-5000 ج</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">⏰ ساعات العمل: 9 ص - 5 م</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">📍 الموقع: النزهة 2</p>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                        <h5 style="font-size: 22px; margin-bottom: 10px; color: #FF6600;">المتطلبات:</h5>
+                        <p style="font-size: 18px; line-height: 1.8;">• خبرة سنة على الأقل<br>• مهارات تواصل ممتازة<br>• إجادة استخدام الكمبيوتر</p>
+                    </div>
+                    <a href="https://wa.me/201068992077?text=أريد التقدم لوظيفة موظف مبيعات" class="button" style="background: linear-gradient(135deg, #0066FF, #0052CC); color: white; width: 100%; font-size: 20px;">📝 قدم الآن</a>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h4 style="font-size: 28px; color: #0066FF;">مطلوب سائق توصيل</h4>
+                        <span style="background: linear-gradient(135deg, #00FF00, #00CC00); color: white; padding: 8px 15px; border-radius: 20px; font-size: 16px; font-weight: bold;">متاح الآن</span>
+                    </div>
+                    <p style="font-size: 20px; margin-bottom: 10px;">🏢 الشركة: مطعم الفراخ المشوية</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">💰 المرتب: 3500 ج + عمولة</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">⏰ ساعات العمل: 12 م - 12 ص</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">📍 الموقع: جسر السويس</p>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                        <h5 style="font-size: 22px; margin-bottom: 10px; color: #FF6600;">المتطلبات:</h5>
+                        <p style="font-size: 18px; line-height: 1.8;">• رخصة قيادة سارية<br>• معرفة بشوارع المنطقة<br>• يفضل وجود موتوسيكل</p>
+                    </div>
+                    <a href="https://wa.me/201068992077?text=أريد التقدم لوظيفة سائق توصيل" class="button" style="background: linear-gradient(135deg, #0066FF, #0052CC); color: white; width: 100%; font-size: 20px;">📝 قدم الآن</a>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h4 style="font-size: 28px; color: #0066FF;">مطلوب محاسب</h4>
+                        <span style="background: linear-gradient(135deg, #FFD700, #FFA500); color: black; padding: 8px 15px; border-radius: 20px; font-size: 16px; font-weight: bold;">عاجل</span>
+                    </div>
+                    <p style="font-size: 20px; margin-bottom: 10px;">🏢 الشركة: شركة استيراد وتصدير</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">💰 المرتب: 5000-7000 ج</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">⏰ ساعات العمل: 8 ص - 4 م</p>
+                    <p style="font-size: 20px; margin-bottom: 10px;">📍 الموقع: النزهة الجديدة</p>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                        <h5 style="font-size: 22px; margin-bottom: 10px; color: #FF6600;">المتطلبات:</h5>
+                        <p style="font-size: 18px; line-height: 1.8;">• مؤهل محاسبة<br>• خبرة 2-3 سنوات<br>• إجادة Excel</p>
+                    </div>
+                    <a href="https://wa.me/201068992077?text=أريد التقدم لوظيفة محاسب" class="button" style="background: linear-gradient(135deg, #0066FF, #0052CC); color: white; width: 100%; font-size: 20px;">📝 قدم الآن</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="shops" class="tab-content" style="display: none;">
+            <div style="text-align: center; padding: 60px 20px;">
+                <div style="font-size: 100px; margin-bottom: 30px;">🏪</div>
+                <h3 style="font-size: 36px; margin-bottom: 20px; color: #0066FF;">قريباً: محلات للبيع والإيجار</h3>
+                <p style="font-size: 22px; color: #666; margin-bottom: 30px;">سيتم إضافة إعلانات المحلات التجارية قريباً</p>
+                <button class="button sparkle" onclick="window.open('https://wa.me/201068992077?text=أريد نشر إعلان محل للبيع', '_blank')" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: black; font-size: 22px; padding: 20px 40px;">➕ أضف إعلان محل</button>
+            </div>
+        </div>
+
+        <div id="moving" class="tab-content" style="display: none;">
+            <div style="text-align: center; padding: 60px 20px;">
+                <div style="font-size: 100px; margin-bottom: 30px;">🚛</div>
+                <h3 style="font-size: 36px; margin-bottom: 20px; color: #0066FF;">قريباً: خدمات النقل والشحن</h3>
+                <p style="font-size: 22px; color: #666; margin-bottom: 30px;">سيتم إضافة شركات النقل والشحن قريباً</p>
+                <a href="maintenance.html#moving" class="button" style="background: linear-gradient(135deg, #9933FF, #7A29CC); color: white; font-size: 22px; padding: 20px 40px;">🏠 شاهد خدمات نقل الأثاث</a>
+            </div>
+        </div>
+
+        <div id="ads" class="tab-content" style="display: none;">
+            <div style="text-align: center; padding: 60px 20px;">
+                <div style="font-size: 100px; margin-bottom: 30px;">📢</div>
+                <h3 style="font-size: 36px; margin-bottom: 20px; color: #0066FF;">قريباً: إعلانات متنوعة</h3>
+                <p style="font-size: 22px; color: #666; margin-bottom: 30px;">سيتم إضافة قسم الإعلانات المتنوعة قريباً</p>
+                <button class="button sparkle" onclick="window.open('https://wa.me/201068992077?text=أريد نشر إعلان', '_blank')" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: black; font-size: 22px; padding: 20px 40px;">➕ أضف إعلانك</button>
+            </div>
+        </div>
+    </div>
+
+    <footer style="background: #1a1a1a; color: white; padding: 40px 20px; text-align: center;">
+        <p style="font-size: 18px;">© 2024 خدمات النزهة 2 - جميع الحقوق محفوظة</p>
+        <p style="font-size: 16px; margin-top: 10px;">📱 واتساب: 201068992077 | ✉️ pertipro1@gmail.com</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 500);
+            }, 1000);
+        });
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+            document.getElementById(tabName).style.display = 'block';
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.style.background = '#ddd';
+                btn.style.color = 'black';
+            });
+            
+            event.target.style.background = 'linear-gradient(135deg, #FF6600, #CC5200)';
+            event.target.style.color = 'white';
+        }
+    </script>
+</body>
+</html>

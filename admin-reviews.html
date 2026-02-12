@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>إدارة التقييمات</title>
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../css/admin-dashboard.css">
+</head>
+<body>
+
+<div class="admin-container">
+<main class="admin-main">
+
+<h1>إدارة التقييمات</h1>
+
+<select id="rating-filter" onchange="loadReviews()">
+<option value="">كل التقييمات</option>
+<option value="5">5 نجوم</option>
+<option value="4">4 نجوم</option>
+<option value="3">3 نجوم</option>
+</select>
+
+<div id="reviews-container"></div>
+
+</main>
+</div>
+
+<script type="module">
+import API from '../js/api-client.js';
+
+async function loadReviews(){
+  const rating = document.getElementById('rating-filter').value;
+  const res = await API.Reviews.getByVendor(1); // placeholder
+  const reviews = res.data.reviews;
+
+  const filtered = rating ? reviews.filter(r=>r.rating==rating) : reviews;
+
+  document.getElementById('reviews-container').innerHTML =
+  filtered.map(r=>`
+    <div class="admin-card">
+      <strong>${r.user}</strong> - ${'⭐'.repeat(r.rating)}
+      <p>${r.comment}</p>
+      <button onclick="deleteReview(${r.id})" class="btn-small danger">حذف</button>
+    </div>
+  `).join('');
+}
+
+window.deleteReview = async id=>{
+  if(confirm('حذف التقييم؟')){
+    await API.Reviews.delete(id);
+    loadReviews();
+  }
+}
+
+loadReviews();
+</script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="أرقام طوارئ، صيدليات، وأطباء في منطقة النزهة 2">
+    <meta name="theme-color" content="#FF0000">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="../styles.css">
+    <title>طوارئ - خدمات النزهة 2</title>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <header class="header" style="background: linear-gradient(135deg, #FF0000, #CC0000); padding: 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.3);">
+        <div class="container" style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <div class="logo" style="display: flex; align-items: center; gap: 15px;">
+                <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 15px;">
+                    <span style="font-size: 50px; animation: bounce 2s infinite;">🚑</span>
+                    <div>
+                        <h1 style="color: white; font-size: 32px; margin: 0;">طوارئ طبية</h1>
+                        <p style="color: white; font-size: 16px; margin: 0;">🏥 أرقام مهمة وخدمات طبية</p>
+                    </div>
+                </a>
+            </div>
+            <nav style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <a href="../index.html" class="button" style="background: white; color: #FF0000; font-size: 18px; padding: 12px 25px;">🏠 الرئيسية</a>
+                <a href="delivery.html" class="button" style="background: white; color: #00CC00; font-size: 18px; padding: 12px 25px;">🏍️ توصيل</a>
+                <a href="maintenance.html" class="button" style="background: white; color: #FF6600; font-size: 18px; padding: 12px 25px;">🔧 صيانة</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero-banner" style="background: linear-gradient(135deg, #FF0000, #CC0000); padding: 60px 20px; text-align: center;">
+        <h2 class="neon" style="font-size: 56px; color: white; margin-bottom: 20px; animation: bounce 2s infinite;">🚨 خدمات الطوارئ 🚨</h2>
+        <p style="font-size: 28px; color: white; margin-bottom: 30px;">أرقام مهمة، صيدليات، وأطباء قريبين منك</p>
+    </div>
+
+    <section style="padding: 60px 20px; background: linear-gradient(135deg, #FF0000, #CC0000);">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <h3 style="font-size: 48px; text-align: center; margin-bottom: 50px; color: white;">🚨 أرقام الطوارئ 🚨</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <a href="tel:122" class="card glow" style="background: linear-gradient(135deg, #0066FF, #0052CC); color: white; text-decoration: none; cursor: pointer; padding: 50px; text-align: center;">
+                    <div style="font-size: 120px; margin-bottom: 20px; animation: bounce 2s infinite;">🚓</div>
+                    <h3 style="font-size: 72px; font-weight: bold; margin-bottom: 15px;">122</h3>
+                    <p style="font-size: 32px; font-weight: bold;">الشرطة</p>
+                    <p style="font-size: 20px; margin-top: 15px;">اضغط للاتصال</p>
+                </a>
+
+                <a href="tel:123" class="card glow" style="background: linear-gradient(135deg, #FF0000, #CC0000); color: white; text-decoration: none; cursor: pointer; padding: 50px; text-align: center;">
+                    <div style="font-size: 120px; margin-bottom: 20px; animation: bounce 2s infinite;">🚑</div>
+                    <h3 style="font-size: 72px; font-weight: bold; margin-bottom: 15px;">123</h3>
+                    <p style="font-size: 32px; font-weight: bold;">الإسعاف</p>
+                    <p style="font-size: 20px; margin-top: 15px;">اضغط للاتصال</p>
+                </a>
+
+                <a href="tel:180" class="card glow" style="background: linear-gradient(135deg, #FF6600, #CC5200); color: white; text-decoration: none; cursor: pointer; padding: 50px; text-align: center;">
+                    <div style="font-size: 120px; margin-bottom: 20px; animation: bounce 2s infinite;">🚒</div>
+                    <h3 style="font-size: 72px; font-weight: bold; margin-bottom: 15px;">180</h3>
+                    <p style="font-size: 32px; font-weight: bold;">الحريق</p>
+                    <p style="font-size: 20px; margin-top: 15px;">اضغط للاتصال</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 60px 20px; background: #f8f9fa;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <h3 style="font-size: 48px; text-align: center; margin-bottom: 50px; color: #0066FF;">💊 الصيدليات القريبة</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h4 style="font-size: 28px; color: #0066FF;">صيدلية الشفاء</h4>
+                        <span style="background: #FF0000; color: white; padding: 8px 15px; border-radius: 20px; font-size: 16px; font-weight: bold; animation: glow-pulse 1.5s infinite;">24 ساعة</span>
+                    </div>
+                    <div style="font-size: 24px; color: gold; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
+                    <p style="font-size: 18px; margin-bottom: 10px;">📍 شارع النزهة الجديدة، بجوار مسجد النور</p>
+                    <p style="font-size: 18px; margin-bottom: 15px;">⏰ مفتوح 24 ساعة</p>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="tel:201068992077" class="button" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; flex: 1; font-size: 18px;">📞 اتصل</a>
+                        <a href="https://wa.me/201068992077" class="button" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; flex: 1; font-size: 18px;">💬 واتساب</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h4 style="font-size: 28px; color: #0066FF;">صيدلية سيف</h4>
+                        <span style="background: #FF0000; color: white; padding: 8px 15px; border-radius: 20px; font-size: 16px; font-weight: bold; animation: glow-pulse 1.5s infinite;">24 ساعة</span>
+                    </div>
+                    <div style="font-size: 24px; color: gold; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
+                    <p style="font-size: 18px; margin-bottom: 10px;">📍 جسر السويس، أمام محطة المترو</p>
+                    <p style="font-size: 18px; margin-bottom: 15px;">⏰ مفتوح 24 ساعة</p>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="tel:201068992077" class="button" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; flex: 1; font-size: 18px;">📞 اتصل</a>
+                        <a href="https://wa.me/201068992077" class="button" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; flex: 1; font-size: 18px;">💬 واتساب</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4 style="font-size: 28px; color: #0066FF; margin-bottom: 15px;">صيدلية العزبي</h4>
+                    <div style="font-size: 24px; color: gold; margin-bottom: 10px;">⭐⭐⭐⭐</div>
+                    <p style="font-size: 18px; margin-bottom: 10px;">📍 شارع النزهة، بجوار مدرسة النزهة</p>
+                    <p style="font-size: 18px; margin-bottom: 15px;">⏰ من 8 ص إلى 12 م</p>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="tel:201068992077" class="button" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; flex: 1; font-size: 18px;">📞 اتصل</a>
+                        <a href="https://wa.me/201068992077" class="button" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; flex: 1; font-size: 18px;">💬 واتساب</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4 style="font-size: 28px; color: #0066FF; margin-bottom: 15px;">صيدلية النهضة</h4>
+                    <div style="font-size: 24px; color: gold; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
+                    <p style="font-size: 18px; margin-bottom: 10px;">📍 شارع جسر السويس الرئيسي</p>
+                    <p style="font-size: 18px; margin-bottom: 15px;">⏰ من 9 ص إلى 11 م</p>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="tel:201068992077" class="button" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; flex: 1; font-size: 18px;">📞 اتصل</a>
+                        <a href="https://wa.me/201068992077" class="button" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; flex: 1; font-size: 18px;">💬 واتساب</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 60px 20px;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <h3 style="font-size: 48px; text-align: center; margin-bottom: 50px; color: #FF0000;">👨‍⚕️ الأطباء حسب التخصص</h3>
+            
+            <div class="tabs" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 40px;">
+                <button class="tab-btn active" onclick="showDoctors('general')" style="background: linear-gradient(135deg, #0066FF, #0052CC); color: white; border: none; padding: 15px 30px; border-radius: 25px; font-size: 20px; cursor: pointer; font-weight: bold;">👨‍⚕️ باطنة</button>
+                <button class="tab-btn" onclick="showDoctors('surgery')" style="background: #ddd; color: black; border: none; padding: 15px 30px; border-radius: 25px; font-size: 20px; cursor: pointer; font-weight: bold;">🔪 جراحة</button>
+                <button class="tab-btn" onclick="showDoctors('pediatrics')" style="background: #ddd; color: black; border: none; padding: 15px 30px; border-radius: 25px; font-size: 20px; cursor: pointer; font-weight: bold;">👶 أطفال</button>
+                <button class="tab-btn" onclick="showDoctors('gynecology')" style="background: #ddd; color: black; border: none; padding: 15px 30px; border-radius: 25px; font-size: 20px; cursor: pointer; font-weight: bold;">👩‍⚕️ نساء</button>
+                <button class="tab-btn" onclick="showDoctors('dentistry')" style="background: #ddd; color: black; border: none; padding: 15px 30px; border-radius: 25px; font-size: 20px; cursor: pointer; font-weight: bold;">🦷 أسنان</button>
+                <button class="tab-btn" onclick="showDoctors('eyes')" style="background: #ddd; color: black; border: none; padding: 15px 30px; border-radius: 25px; font-size: 20px; cursor: pointer; font-weight: bold;">👁️ عيون</button>
+                <button class="tab-btn" onclick="showDoctors('ent')" style="background: #ddd; color: black; border: none; padding: 15px 30px; border-radius: 25px; font-size: 20px; cursor: pointer; font-weight: bold;">👃 أنف وأذن</button>
+            </div>
+
+            <div id="doctors-container">
+                <div class="doctors-list" id="general" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+                    <div class="card">
+                        <h4 style="font-size: 28px; color: #0066FF; margin-bottom: 10px;">د. أحمد محمود</h4>
+                        <p style="font-size: 20px; color: #666; margin-bottom: 10px;">استشاري باطنة</p>
+                        <div style="font-size: 24px; color: gold; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
+                        <p style="font-size: 18px; margin-bottom: 5px;">📍 عيادة النزهة الطبية</p>
+                        <p style="font-size: 18px; margin-bottom: 5px;">⏰ السبت-الخميس: 5م-9م</p>
+                        <p style="font-size: 20px; font-weight: bold; color: #FF6600; margin-bottom: 15px;">💰 الكشف: 200 جنيه</p>
+                        <div style="display: flex; gap: 10px;">
+                            <a href="tel:201068992077" class="button" style="background: linear-gradient(135deg, #0066FF, #0052CC); color: white; flex: 1; font-size: 18px;">📞 احجز الآن</a>
+                            <a href="https://wa.me/201068992077" class="button" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; flex: 1; font-size: 18px;">💬 واتساب</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h4 style="font-size: 28px; color: #0066FF; margin-bottom: 10px;">د. سارة علي</h4>
+                        <p style="font-size: 20px; color: #666; margin-bottom: 10px;">أخصائي باطنة</p>
+                        <div style="font-size: 24px; color: gold; margin-bottom: 10px;">⭐⭐⭐⭐</div>
+                        <p style="font-size: 18px; margin-bottom: 5px;">📍 مركز جسر السويس الطبي</p>
+                        <p style="font-size: 18px; margin-bottom: 5px;">⏰ السبت-الأربعاء: 6م-10م</p>
+                        <p style="font-size: 20px; font-weight: bold; color: #FF6600; margin-bottom: 15px;">💰 الكشف: 150 جنيه</p>
+                        <div style="display: flex; gap: 10px;">
+                            <a href="tel:201068992077" class="button" style="background: linear-gradient(135deg, #0066FF, #0052CC); color: white; flex: 1; font-size: 18px;">📞 احجز الآن</a>
+                            <a href="https://wa.me/201068992077" class="button" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; flex: 1; font-size: 18px;">💬 واتساب</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doctors-list" id="surgery" style="display: none;">
+                    <p style="text-align: center; font-size: 24px; color: #666;">جاري تحديث قائمة أطباء الجراحة...</p>
+                </div>
+
+                <div class="doctors-list" id="pediatrics" style="display: none;">
+                    <p style="text-align: center; font-size: 24px; color: #666;">جاري تحديث قائمة أطباء الأطفال...</p>
+                </div>
+
+                <div class="doctors-list" id="gynecology" style="display: none;">
+                    <p style="text-align: center; font-size: 24px; color: #666;">جاري تحديث قائمة أطباء النساء...</p>
+                </div>
+
+                <div class="doctors-list" id="dentistry" style="display: none;">
+                    <p style="text-align: center; font-size: 24px; color: #666;">جاري تحديث قائمة أطباء الأسنان...</p>
+                </div>
+
+                <div class="doctors-list" id="eyes" style="display: none;">
+                    <p style="text-align: center; font-size: 24px; color: #666;">جاري تحديث قائمة أطباء العيون...</p>
+                </div>
+
+                <div class="doctors-list" id="ent" style="display: none;">
+                    <p style="text-align: center; font-size: 24px; color: #666;">جاري تحديث قائمة أطباء الأنف والأذن...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #1a1a1a; color: white; padding: 40px 20px; text-align: center;">
+        <p style="font-size: 18px;">© 2024 خدمات النزهة 2 - جميع الحقوق محفوظة</p>
+        <p style="font-size: 16px; margin-top: 10px;">📱 واتساب: 201068992077 | ✉️ pertipro1@gmail.com</p>
+    </footer>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 500);
+            }, 1000);
+        });
+
+        function showDoctors(specialty) {
+            document.querySelectorAll('.doctors-list').forEach(list => list.style.display = 'none');
+            document.getElementById(specialty).style.display = 'grid';
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.style.background = '#ddd';
+                btn.style.color = 'black';
+            });
+            
+            event.target.style.background = 'linear-gradient(135deg, #0066FF, #0052CC)';
+            event.target.style.color = 'white';
+        }
+    </script>
+</body>
+</html>

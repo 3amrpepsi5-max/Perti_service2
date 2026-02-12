@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="الملف التجاري - خدمات النزهة 2">
+    <meta name="theme-color" content="#FF6600">
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./vendor-dashboard.css">
+    <title>الملف التجاري - خدمات النزهة 2</title>
+    <style>
+        .profile-section {
+            padding: 40px 0;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 30px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-avatar-section {
+            text-align: center;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+        }
+
+        .avatar-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #FF6600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .avatar-upload {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #FF6600, #FF0000);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .avatar-upload:hover {
+            transform: scale(1.1);
+        }
+
+        .avatar-upload input {
+            display: none;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .profile-stat {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 15px;
+        }
+
+        .profile-stat-value {
+            display: block;
+            font-size: 24px;
+            font-weight: 900;
+            color: white;
+        }
+
+        .profile-stat-label {
+            display: block;
+            font-size: 12px;
+            color: white;
+            margin-top: 5px;
+        }
+
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-input {
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #FF6600;
+            box-shadow: 0 0 15px rgba(255, 102, 0, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .business-hours {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .hours-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .hours-day {
+            font-weight: 700;
+            color: #333;
+            min-width: 80px;
+        }
+
+        .hours-inputs {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .hours-input {
+            padding: 10px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .hours-toggle {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background: #28a745;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hours-toggle.closed {
+            background: #dc3545;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background: #5a6268;
+        }
+
+        @media (max-width: 1024px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .profile-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hours-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .hours-day {
+                min-width: unset;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="vendor-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <span class="logo-icon">🏪</span>
+                    <div class="logo-text">
+                        <h1>لوحة تحكم المزود</h1>
+                        <p>مرحباً بك في خدمات النزهة 2</p>
+                    </div>
+                </div>
+                <nav class="vendor-nav">
+                    <a href="vendor-dashboard.html" class="nav-btn">
+                        <span class="nav-icon">🏠</span>
+                        <span class="nav-text">الرئيسية</span>
+                    </a>
+                    <a href="vendor-orders.html" class="nav-btn">
+                        <span class="nav-icon">📦</span>
+                        <span class="nav-text">الطلبات</span>
+                    </a>
+                    <a href="vendor-profile.html" class="nav-btn active">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-text">الملف التجاري</span>
+                    </a>
+                    <a href="#" class="nav-btn logout-btn" id="logoutBtn">
+                        <span class="nav-icon">🚪</span>
+                        <span class="nav-text">تسجيل الخروج</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <div>
+                    <h1 class="page-title">
+                        <span>👤</span>
+                        الملف التجاري
+                    </h1>
+                    <p class="page-subtitle">قم بتحديث بياناتك التجارية وإعدادات حسابك</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="container">
+            <div class="profile-grid">
+                <!-- Sidebar -->
+                <div class="profile-card profile-avatar-section">
+                    <div class="avatar-container">
+                        <img src="https://via.placeholder.com/200" alt="صورة المحل" class="avatar-image" id="avatarPreview">
+                        <label class="avatar-upload">
+                            📷
+                            <input type="file" accept="image/*" id="avatarInput">
+                        </label>
+                    </div>
+                    <h2 style="margin: 0 0 5px 0; font-size: 24px; color: #333;">محل الصيانة السريعة</h2>
+                    <p style="margin: 0 0 10px 0; color: #666;">⭐ تقييم: 4.8 من 5</p>
+                    <p style="margin: 0; color: #999; font-size: 14px;">📍 شارع النزهة، القاهرة</p>
+
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <span class="profile-stat-value">156</span>
+                            <span class="profile-stat-label">طلب مكتمل</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="profile-stat-value">4.8</span>
+                            <span class="profile-stat-label">التقييم</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="profile-stat-value">98%</span>
+                            <span class="profile-stat-label">نسبة القبول</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 30px; padding-top: 30px; border-top: 2px solid #e9ecef;">
+                        <h3 style="margin: 0 0 15px 0; font-size: 18px; color: #333;">روابط سريعة</h3>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <a href="vendor-reviews.html" style="display: flex; align-items: center; gap: 8px; padding: 12px; background: #f8f9fa; border-radius: 10px; text-decoration: none; color: #333; font-weight: 700; transition: all 0.3s ease;">
+                                <span>⭐</span>
+                                <span>التقييمات</span>
+                            </a>
+                            <a href="vendor-analytics.html" style="display: flex; align-items: center; gap: 8px; padding: 12px; background: #f8f9fa; border-radius: 10px; text-decoration: none; color: #333; font-weight: 700; transition: all 0.3s ease;">
+                                <span>📊</span>
+                                <span>الإحصائيات</span>
+                            </a>
+                            <a href="vendor-subscription.html" style="display: flex; align-items: center; gap: 8px; padding: 12px; background: #f8f9fa; border-radius: 10px; text-decoration: none; color: #333; font-weight: 700; transition: all 0.3s ease;">
+                                <span>💎</span>
+                                <span>الاشتراك</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="profile-card">
+                    <h2 style="margin: 0 0 30px 0; font-size: 28px; color: #333; display: flex; align-items: center; gap: 10px;">
+                        <span>✏️</span>
+                        تعديل البيانات الأساسية
+                    </h2>
+
+                    <form class="profile-form" id="profileForm">
+                        <!-- Basic Info -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span>🏪</span>
+                                    اسم المحل
+                                </label>
+                                <input type="text" class="form-input" id="businessName" value="محل الصيانة السريعة" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span>🏷️</span>
+                                    التصنيف
+                                </label>
+                                <select class="form-input" id="category" required>
+                                    <option value="">اختر التصنيف</option>
+                                    <option value="electrician" selected>كهربائي</option>
+                                    <option value="plumber">سباك</option>
+                                    <option value="carpenter">نجار</option>
+                                    <option value="painter">دهان</option>
+                                    <option value="ac-repair">تصليح تكييفات</option>
+                                    <option value="appliances">أجهزة منزلية</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span>📞</span>
+                                    رقم الهاتف
+                                </label>
+                                <input type="tel" class="form-input" id="phone" value="01012345678" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span>✉️</span>
+                                    البريد الإلكتروني
+                                </label>
+                                <input type="email" class="form-input" id="email" value="vendor@example.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <span>📍</span>
+                                العنوان
+                            </label>
+                            <input type="text" class="form-input" id="address" value="شارع النزهة، برج السلام، الدور الأرضي، القاهرة" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <span>📝</span>
+                                وصف الخدمات
+                            </label>
+                            <textarea class="form-input form-textarea" id="description" required>نوفر خدمات الصيانة الكهربائية والإصلاحات المنزلية على مدار الساعة بأفضل الأسعار وأعلى جودة في الخدمة.</textarea>
+                        </div>
+
+                        <!-- Working Hours -->
+                        <div class="form-group">
+                            <label class="form-label">
+                                <span>🕐</span>
+                                ساعات العمل
+                            </label>
+                            <div class="business-hours" id="businessHours">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Additional Info -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span>💰</span>
+                                    متوسط سعر الخدمة (جنيه)
+                                </label>
+                                <input type="number" class="form-input" id="avgPrice" value="350" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <span>📦</span>
+                                    الحد الأقصى للطلبات اليومية
+                                </label>
+                                <input type="number" class="form-input" id="maxOrders" value="10" min="1" required>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="button" class="btn-cancel" onclick="history.back()">
+                                ❌ إلغاء
+                            </button>
+                            <button type="submit" class="btn-save">
+                                ✅ حفظ التغييرات
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="vendor-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2024 خدمات النزهة 2 - جميع الحقوق محفوظة</p>
+                <div class="footer-links">
+                    <a href="#">📞 الدعم الفني</a>
+                    <a href="#">❓ المساعدة</a>
+                    <a href="#">📜 الشروط والأحكام</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./api-client.js"></script>
+    <script>
+        // Hide loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }, 500);
+        });
+
+        // Days of the week
+        const days = [
+            { name: 'السبت', key: 'saturday' },
+            { name: 'الأحد', key: 'sunday' },
+            { name: 'الإثنين', key: 'monday' },
+            { name: 'الثلاثاء', key: 'tuesday' },
+            { name: 'الأربعاء', key: 'wednesday' },
+            { name: 'الخميس', key: 'thursday' },
+            { name: 'الجمعة', key: 'friday' }
+        ];
+
+        // Initialize business hours
+        function initBusinessHours() {
+            const hoursContainer = document.getElementById('businessHours');
+            
+            days.forEach(day => {
+                const row = document.createElement('div');
+                row.className = 'hours-row';
+                row.innerHTML = `
+                    <div class="hours-day">${day.name}</div>
+                    <div class="hours-inputs">
+                        <input type="time" class="hours-input" value="09:00" data-day="${day.key}" data-type="from">
+                        <span>إلى</span>
+                        <input type="time" class="hours-input" value="21:00" data-day="${day.key}" data-type="to">
+                    </div>
+                    <button type="button" class="hours-toggle" data-day="${day.key}" onclick="toggleDayStatus(this)">
+                        مفتوح
+                    </button>
+                `;
+                hoursContainer.appendChild(row);
+            });
+        }
+
+        // Toggle day status
+        function toggleDayStatus(button) {
+            const row = button.parentElement;
+            const inputs = row.querySelectorAll('.hours-input');
+            
+            if (button.classList.contains('closed')) {
+                button.classList.remove('closed');
+                button.textContent = 'مفتوح';
+                inputs.forEach(input => input.disabled = false);
+            } else {
+                button.classList.add('closed');
+                button.textContent = 'مغلق';
+                inputs.forEach(input => input.disabled = true);
+            }
+        }
+
+        // Avatar upload preview
+        document.getElementById('avatarInput').addEventListener('change', async function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+
+                // Upload to server (when backend is ready)
+                try {
+                    showNotification('جاري رفع الصورة...', 'info');
+                    // const response = await API.Upload.uploadImage(file, 'vendor-logo');
+                    // if (response.success) {
+                    //     showNotification('تم رفع الصورة بنجاح!', 'success');
+                    // }
+                    
+                    // Mock success
+                    setTimeout(() => {
+                        showNotification('تم رفع الصورة بنجاح!', 'success');
+                    }, 1500);
+                } catch (error) {
+                    console.error('Error uploading avatar:', error);
+                    showNotification('حدث خطأ في رفع الصورة', 'danger');
+                }
+            }
+        });
+
+        // Form submission
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = {
+                businessName: document.getElementById('businessName').value,
+                category: document.getElementById('category').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                description: document.getElementById('description').value,
+                avgPrice: document.getElementById('avgPrice').value,
+                maxOrders: document.getElementById('maxOrders').value,
+                businessHours: getBusinessHours()
+            };
+
+            try {
+                showNotification('جاري حفظ التغييرات...', 'info');
+
+                // TODO: Replace with actual API call
+                // const response = await API.Vendors.update(vendorId, formData);
+                
+                // Mock success
+                setTimeout(() => {
+                    showNotification('تم حفظ التغييرات بنجاح!', 'success');
+                }, 1500);
+
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                showNotification('حدث خطأ في حفظ البيانات', 'danger');
+            }
+        });
+
+        // Get business hours from form
+        function getBusinessHours() {
+            const hours = {};
+            days.forEach(day => {
+                const fromInput = document.querySelector(`input[data-day="${day.key}"][data-type="from"]`);
+                const toInput = document.querySelector(`input[data-day="${day.key}"][data-type="to"]`);
+                const toggleBtn = document.querySelector(`button[data-day="${day.key}"]`);
+                
+                hours[day.key] = {
+                    open: !toggleBtn.classList.contains('closed'),
+                    from: fromInput.value,
+                    to: toInput.value
+                };
+            });
+            return hours;
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Logout
+        document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('هل تريد تسجيل الخروج؟')) {
+                showNotification('تم تسجيل الخروج بنجاح', 'info');
+                setTimeout(() => {
+                    location.href = 'index.html';
+                }, 1500);
+            }
+        });
+
+        // Initialize
+        initBusinessHours();
+    </script>
+</body>
+</html>

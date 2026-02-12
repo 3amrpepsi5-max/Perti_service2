@@ -1,0 +1,25 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "منطقة النزهة 2 وجسر السويس",
+        "name_en": "Nozha 2 & Gesr El Suez",
+        "description": "نطاق الخدمة المحدد",
+        "color": "#00ff88",
+        "fillOpacity": 0.2
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [31.366778, 30.129037],
+          [31.400042, 30.142056],
+          [31.381158, 30.152516],
+          [31.359266, 30.139785],
+          [31.366778, 30.129037]
+        ]]
+      }
+    }
+  ]
+}

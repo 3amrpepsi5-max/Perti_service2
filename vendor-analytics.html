@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="الإحصائيات - خدمات النزهة 2">
+    <meta name="theme-color" content="#FF6600">
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./vendor-dashboard.css">
+    <title>الإحصائيات - خدمات النزهة 2</title>
+    <style>
+        .analytics-section {
+            padding: 40px 0;
+        }
+
+        .period-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .period-btn {
+            padding: 12px 30px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 25px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .period-btn:hover {
+            background: #f8f9fa;
+        }
+
+        .period-btn.active {
+            background: linear-gradient(135deg, #FF6600, #FF0000);
+            color: white;
+            border-color: transparent;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .analytics-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .analytics-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-icon {
+            font-size: 32px;
+        }
+
+        .card-value {
+            font-size: 42px;
+            font-weight: 900;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card-change {
+            font-size: 14px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .change-positive {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+        }
+
+        .change-negative {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .chart-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+        }
+
+        .chart-container-custom {
+            position: relative;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+
+        .chart-canvas {
+            width: 100%;
+            height: 100%;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 100%;
+            gap: 10px;
+        }
+
+        .bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bar {
+            width: 100%;
+            background: linear-gradient(180deg, #FF6600, #FF0000);
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .bar:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.3);
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 900;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .bar-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #666;
+            text-align: center;
+        }
+
+        .line-chart {
+            position: relative;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .line-chart-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .pie-chart-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .pie-chart {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #FF6600 0deg 270deg,
+                #28a745 270deg 324deg,
+                #ffc107 324deg 345deg,
+                #dc3545 345deg 360deg
+            );
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .pie-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .pie-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pie-legend-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+        }
+
+        .pie-legend-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pie-legend-label {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .pie-legend-value {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .insights-section {
+            background: linear-gradient(135deg, #0066FF, #0052CC);
+            border-radius: 25px;
+            padding: 40px;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .insights-title {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .insight-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .insight-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .insight-text {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container-custom {
+                height: 300px;
+            }
+
+            .period-selector {
+                width: 100%;
+            }
+
+            .period-btn {
+                flex: 1;
+                min-width: 80px;
+            }
+
+            .pie-chart-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="vendor-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <span class="logo-icon">🏪</span>
+                    <div class="logo-text">
+                        <h1>لوحة تحكم المزود</h1>
+                        <p>مرحباً بك في خدمات النزهة 2</p>
+                    </div>
+                </div>
+                <nav class="vendor-nav">
+                    <a href="vendor-dashboard.html" class="nav-btn">
+                        <span class="nav-icon">🏠</span>
+                        <span class="nav-text">الرئيسية</span>
+                    </a>
+                    <a href="vendor-orders.html" class="nav-btn">
+                        <span class="nav-icon">📦</span>
+                        <span class="nav-text">الطلبات</span>
+                    </a>
+                    <a href="vendor-profile.html" class="nav-btn">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-text">الملف التجاري</span>
+                    </a>
+                    <a href="#" class="nav-btn logout-btn" id="logoutBtn">
+                        <span class="nav-icon">🚪</span>
+                        <span class="nav-text">تسجيل الخروج</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <div>
+                    <h1 class="page-title">
+                        <span>📊</span>
+                        الإحصائيات والتحليلات
+                    </h1>
+                    <p class="page-subtitle">تابع أداء محلك وحلل البيانات لتحسين الخدمة</p>
+                </div>
+                <div class="page-stats-mini">
+                    <div class="stat-mini">
+                        <span class="stat-mini-value">156</span>
+                        <span class="stat-mini-label">طلب مكتمل</span>
+                    </div>
+                    <div class="stat-mini">
+                        <span class="stat-mini-value">45.2K</span>
+                        <span class="stat-mini-label">إجمالي الدخل</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section class="analytics-section">
+        <div class="container">
+            <!-- Period Selector -->
+            <div class="period-selector">
+                <button class="period-btn" data-period="today">اليوم</button>
+                <button class="period-btn" data-period="week">هذا الأسبوع</button>
+                <button class="period-btn active" data-period="month">هذا الشهر</button>
+                <button class="period-btn" data-period="year">هذا العام</button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <span>💰</span>
+                            إجمالي الدخل
+                        </h3>
+                        <span class="card-icon">📈</span>
+                    </div>
+                    <div class="card-value">45,200 <span style="font-size: 24px;">جنيه</span></div>
+                    <div class="card-change change-positive">↗ +23% من الشهر الماضي</div>
+                    <p class="card-subtitle">متوسط الدخل اليومي: 1,507 جنيه</p>
+                </div>
+
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <span>📦</span>
+                            إجمالي الطلبات
+                        </h3>
+                        <span class="card-icon">📊</span>
+                    </div>
+                    <div class="card-value">156</div>
+                    <div class="card-change change-positive">↗ +18% من الشهر الماضي</div>
+                    <p class="card-subtitle">متوسط الطلبات اليومية: 5.2 طلب</p>
+                </div>
+
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <span>⭐</span>
+                            التقييم
+                        </h3>
+                        <span class="card-icon">🌟</span>
+                    </div>
+                    <div class="card-value">4.8</div>
+                    <div class="card-change change-positive">↗ +0.2 من الشهر الماضي</div>
+                    <p class="card-subtitle">156 تقييم إجمالي</p>
+                </div>
+
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <span>✅</span>
+                            نسبة الإكمال
+                        </h3>
+                        <span class="card-icon">💯</span>
+                    </div>
+                    <div class="card-value">94%</div>
+                    <div class="card-change change-negative">↘ -2% من الشهر الماضي</div>
+                    <p class="card-subtitle">147 طلب مكتمل من أصل 156</p>
+                </div>
+            </div>
+
+            <!-- Revenue Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2 class="chart-title">
+                        <span>💰</span>
+                        الدخل الشهري
+                    </h2>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: linear-gradient(135deg, #FF6600, #FF0000);"></div>
+                            <span>الدخل (جنيه)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container-custom">
+                    <div class="chart-canvas">
+                        <div class="bar-chart" id="revenueChart">
+                            <!-- Bars will be generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2 class="chart-title">
+                        <span>📦</span>
+                        عدد الطلبات الشهرية
+                    </h2>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: linear-gradient(135deg, #0066FF, #0052CC);"></div>
+                            <span>عدد الطلبات</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container-custom">
+                    <div class="chart-canvas">
+                        <div class="bar-chart" id="ordersChart">
+                            <!-- Bars will be generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Status Pie Chart -->
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h2 class="chart-title">
+                        <span>📊</span>
+                        توزيع حالات الطلبات
+                    </h2>
+                </div>
+                <div class="chart-container-custom">
+                    <div class="pie-chart-container">
+                        <div class="pie-chart"></div>
+                        <div class="pie-legend">
+                            <div class="pie-legend-item">
+                                <div class="pie-legend-color" style="background: #FF6600;"></div>
+                                <div class="pie-legend-text">
+                                    <span class="pie-legend-label">مكتمل</span>
+                                    <span class="pie-legend-value">147 طلب (75%)</span>
+                                </div>
+                            </div>
+                            <div class="pie-legend-item">
+                                <div class="pie-legend-color" style="background: #28a745;"></div>
+                                <div class="pie-legend-text">
+                                    <span class="pie-legend-label">قيد التنفيذ</span>
+                                    <span class="pie-legend-value">12 طلب (15%)</span>
+                                </div>
+                            </div>
+                            <div class="pie-legend-item">
+                                <div class="pie-legend-color" style="background: #ffc107;"></div>
+                                <div class="pie-legend-text">
+                                    <span class="pie-legend-label">قيد الانتظار</span>
+                                    <span class="pie-legend-value">5 طلب (7%)</span>
+                                </div>
+                            </div>
+                            <div class="pie-legend-item">
+                                <div class="pie-legend-color" style="background: #dc3545;"></div>
+                                <div class="pie-legend-text">
+                                    <span class="pie-legend-label">ملغي</span>
+                                    <span class="pie-legend-value">3 طلب (3%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insights -->
+            <div class="insights-section">
+                <h2 class="insights-title">
+                    <span>💡</span>
+                    رؤى وتوصيات
+                </h2>
+                <div class="insights-grid">
+                    <div class="insight-item">
+                        <div class="insight-icon">📈</div>
+                        <div class="insight-text">
+                            <strong>أداء ممتاز!</strong> دخلك زاد بنسبة 23% مقارنة بالشهر الماضي. استمر على هذا الأداء الرائع!
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon">⭐</div>
+                        <div class="insight-text">
+                            <strong>تقييمات عالية</strong> تقييمك 4.8 من 5 يضعك في قائمة أفضل المزودين. حافظ على جودة الخدمة!
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon">🎯</div>
+                        <div class="insight-text">
+                            <strong>نصيحة</strong> الأحد والإثنين هما أفضل أيامك. حاول زيادة الطلبات في الأيام الأخرى.
+                        </div>
+                    </div>
+                    <div class="insight-item">
+                        <div class="insight-icon">💎</div>
+                        <div class="insight-text">
+                            <strong>فرصة</strong> اشترك في الباقة الذهبية لزيادة ظهورك بنسبة 40% والحصول على المزيد من الطلبات!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="vendor-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2024 خدمات النزهة 2 - جميع الحقوق محفوظة</p>
+                <div class="footer-links">
+                    <a href="#">📞 الدعم الفني</a>
+                    <a href="#">❓ المساعدة</a>
+                    <a href="#">📜 الشروط والأحكام</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./api-client.js"></script>
+    <script>
+        // Hide loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }, 500);
+        });
+
+        // Revenue data (mock)
+        const revenueData = [
+            { label: 'يناير', value: 38000 },
+            { label: 'فبراير', value: 42000 },
+            { label: 'مارس', value: 39500 },
+            { label: 'أبريل', value: 44000 },
+            { label: 'مايو', value: 41000 },
+            { label: 'يونيو', value: 45200 }
+        ];
+
+        // Orders data (mock)
+        const ordersData = [
+            { label: 'يناير', value: 128 },
+            { label: 'فبراير', value: 142 },
+            { label: 'مارس', value: 135 },
+            { label: 'أبريل', value: 149 },
+            { label: 'مايو', value: 138 },
+            { label: 'يونيو', value: 156 }
+        ];
+
+        // Generate bar chart
+        function generateBarChart(containerId, data, color) {
+            const container = document.getElementById(containerId);
+            const maxValue = Math.max(...data.map(d => d.value));
+
+            container.innerHTML = '';
+
+            data.forEach(item => {
+                const barItem = document.createElement('div');
+                barItem.className = 'bar-item';
+
+                const height = (item.value / maxValue) * 100;
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.height = height + '%';
+                if (color) {
+                    bar.style.background = color;
+                }
+
+                const barValue = document.createElement('div');
+                barValue.className = 'bar-value';
+                barValue.textContent = item.value.toLocaleString();
+                bar.appendChild(barValue);
+
+                const barLabel = document.createElement('div');
+                barLabel.className = 'bar-label';
+                barLabel.textContent = item.label;
+
+                barItem.appendChild(bar);
+                barItem.appendChild(barLabel);
+                container.appendChild(barItem);
+            });
+        }
+
+        // Period selector
+        document.querySelectorAll('.period-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const period = this.dataset.period;
+                showNotification(`تم اختيار الفترة: ${this.textContent}`, 'info');
+
+                // TODO: Load data for selected period
+                // loadAnalyticsData(period);
+            });
+        });
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Logout
+        document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('هل تريد تسجيل الخروج؟')) {
+                showNotification('تم تسجيل الخروج بنجاح', 'info');
+                setTimeout(() => {
+                    location.href = 'index.html';
+                }, 1500);
+            }
+        });
+
+        // Load analytics data
+        async function loadAnalytics() {
+            try {
+                // TODO: Replace with actual API calls
+                // const response = await API.Vendors.getAnalytics(vendorId);
+                
+                // For now, use mock data
+                console.log('Loading analytics (mock data)');
+            } catch (error) {
+                console.error('Error loading analytics:', error);
+            }
+        }
+
+        // Initialize
+        generateBarChart('revenueChart', revenueData);
+        generateBarChart('ordersChart', ordersData, 'linear-gradient(180deg, #0066FF, #0052CC)');
+        loadAnalytics();
+    </script>
+</body>
+</html>

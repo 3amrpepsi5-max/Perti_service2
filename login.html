@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="خدمات النزهة 2 - منصة خدمية شاملة لمنطقة النزهة 2 وجسر السويس في القاهرة">
+    <meta name="keywords" content="النزهة 2, جسر السويس, خدمات, مطاعم, صيدليات, توصيل, صيانة, القاهرة">
+    <meta name="author" content="خدمات النزهة 2">
+    <meta name="theme-color" content="#FF6600">
+    <meta property="og:title" content="خدمات النزهة 2 - كل الخدمات في مكان واحد">
+    <meta property="og:description" content="اكتشف جميع المحلات والخدمات في منطقتك">
+    <meta property="og:image" content="./assets/og-image.jpg">
+    <meta property="og:type" content="website">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+    <link rel="apple-touch-icon" href="./assets/icon-192.png">
+    <link rel="stylesheet" href="./styles.css">
+    <title>تسجيل الدخول - خدمات النزهة 2</title>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="login-container gradient-bg">
+        <div class="login-box" style="animation: scale-in 0.6s ease;">
+            <div class="logo-container">
+                <div class="logo-circle" style="width: 150px; height: 150px; background: white; border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); animation: bounce 2s infinite;">
+                    <span style="font-size: 80px;">🏪</span>
+                </div>
+                <h1 class="neon" style="font-size: 48px; color: white; text-align: center; margin-bottom: 10px;">خدمات النزهة 2</h1>
+                <p style="font-size: 22px; color: white; text-align: center; margin-bottom: 40px;">✨ كل الخدمات في مكان واحد ✨</p>
+            </div>
+
+            <div class="login-buttons" style="max-width: 500px; margin: 0 auto;">
+                <button class="button" onclick="loginWithGoogle()" style="background: linear-gradient(135deg, #DB4437, #C33D2E); color: white; width: 100%; margin-bottom: 15px; font-size: 22px;">
+                    📧 تسجيل الدخول بجوجل
+                </button>
+                
+                <button class="button" onclick="loginWithFacebook()" style="background: linear-gradient(135deg, #1877F2, #0C63D4); color: white; width: 100%; margin-bottom: 15px; font-size: 22px;">
+                    📘 تسجيل الدخول بفيسبوك
+                </button>
+                
+                <button class="button" onclick="showEmailLogin()" style="background: linear-gradient(135deg, #28a745, #1e7e34); color: white; width: 100%; margin-bottom: 15px; font-size: 22px;">
+                    ✉️ تسجيل الدخول بالبريد
+                </button>
+                
+                <button class="button" onclick="showPhoneLogin()" style="background: linear-gradient(135deg, #FF6600, #CC5200); color: white; width: 100%; margin-bottom: 15px; font-size: 22px;">
+                    📱 تسجيل الدخول بالهاتف
+                </button>
+                
+                <button class="button" onclick="continueAsGuest()" style="background: linear-gradient(135deg, #6c757d, #545b62); color: white; width: 100%; margin-bottom: 15px; font-size: 22px; position: relative; overflow: hidden;">
+                    👤 الدخول كضيف
+                    <span style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px);"></span>
+                </button>
+                
+                <button class="button sparkle" onclick="downloadApp()" style="background: linear-gradient(135deg, #9933FF, #7A29CC); color: white; width: 100%; font-size: 22px; position: relative;">
+                    📲 تحميل التطبيق
+                </button>
+            </div>
+
+            <div id="emailLoginForm" style="display: none; max-width: 500px; margin: 30px auto;">
+                <input type="email" id="email" placeholder="البريد الإلكتروني" style="width: 100%; padding: 15px; font-size: 20px; border-radius: 15px; border: 3px solid white; margin-bottom: 15px; text-align: right;">
+                <input type="password" id="password" placeholder="كلمة المرور" style="width: 100%; padding: 15px; font-size: 20px; border-radius: 15px; border: 3px solid white; margin-bottom: 15px; text-align: right;">
+                <button class="button" onclick="submitEmailLogin()" style="background: linear-gradient(135deg, #28a745, #1e7e34); color: white; width: 100%; font-size: 22px;">
+                    دخول
+                </button>
+            </div>
+
+            <div id="phoneLoginForm" style="display: none; max-width: 500px; margin: 30px auto;">
+                <input type="tel" id="phone" placeholder="رقم الهاتف (مثال: 01012345678)" style="width: 100%; padding: 15px; font-size: 20px; border-radius: 15px; border: 3px solid white; margin-bottom: 15px; text-align: right;">
+                <button class="button" onclick="submitPhoneLogin()" style="background: linear-gradient(135deg, #FF6600, #CC5200); color: white; width: 100%; font-size: 22px;">
+                    إرسال كود التحقق
+                </button>
+            </div>
+        </div>
+
+        <div style="text-align: center; color: white; margin-top: 30px; font-size: 18px;">
+            <p>🔒 بياناتك آمنة ومحمية 100%</p>
+            <p style="margin-top: 10px;">
+                <a href="#" style="color: white; text-decoration: underline;">الشروط والأحكام</a> | 
+                <a href="#" style="color: white; text-decoration: underline;">سياسة الخصوصية</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="./scripts.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        function loginWithGoogle() {
+            alert('🔄 جاري تسجيل الدخول بجوجل...');
+            setTimeout(() => {
+                NozhaServices.setUserSession({ method: 'google', loginTime: new Date().toISOString() });
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        function loginWithFacebook() {
+            alert('🔄 جاري تسجيل الدخول بفيسبوك...');
+            setTimeout(() => {
+                NozhaServices.setUserSession({ method: 'facebook', loginTime: new Date().toISOString() });
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        function showEmailLogin() {
+            document.getElementById('emailLoginForm').style.display = 'block';
+            document.getElementById('phoneLoginForm').style.display = 'none';
+        }
+
+        function showPhoneLogin() {
+            document.getElementById('phoneLoginForm').style.display = 'block';
+            document.getElementById('emailLoginForm').style.display = 'none';
+        }
+
+        function submitEmailLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                alert('⚠️ من فضلك أدخل البريد وكلمة المرور');
+                return;
+            }
+            
+            if (!NozhaServices.validateEmail(email)) {
+                alert('⚠️ من فضلك أدخل بريد إلكتروني صحيح');
+                return;
+            }
+            
+            alert('✅ تم تسجيل الدخول بنجاح!');
+            NozhaServices.setUserSession({ method: 'email', email: email, loginTime: new Date().toISOString() });
+            window.location.href = 'index.html';
+        }
+
+        function submitPhoneLogin() {
+            const phone = document.getElementById('phone').value;
+            
+            if (!phone) {
+                alert('⚠️ من فضلك أدخل رقم الهاتف');
+                return;
+            }
+            
+            if (!NozhaServices.validatePhone(phone)) {
+                alert('⚠️ من فضلك أدخل رقم هاتف صحيح');
+                return;
+            }
+            
+            alert('📱 تم إرسال كود التحقق على الواتساب');
+            setTimeout(() => {
+                NozhaServices.setUserSession({ method: 'phone', phone: phone, loginTime: new Date().toISOString() });
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+
+        function continueAsGuest() {
+            if (confirm('هل تريد الدخول كضيف؟ لن تتمكن من حفظ بياناتك.')) {
+                NozhaServices.setUserSession({ method: 'guest', loginTime: new Date().toISOString() });
+                window.location.href = 'index.html';
+            }
+        }
+
+        function downloadApp() {
+            if ('serviceWorker' in navigator) {
+                NozhaServices.installPWA();
+                alert('📲 يمكنك إضافة التطبيق للشاشة الرئيسية من قائمة المتصفح');
+            } else {
+                alert('⚠️ متصفحك لا يدعم تحميل التطبيقات');
+            }
+        }
+    </script>
+</body>
+</html>

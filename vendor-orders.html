@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="إدارة الطلبات - خدمات النزهة 2">
+    <meta name="theme-color" content="#FF6600">
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./vendor-dashboard.css">
+    <title>إدارة الطلبات - خدمات النزهة 2</title>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="vendor-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <span class="logo-icon">🏪</span>
+                    <div class="logo-text">
+                        <h1>إدارة الطلبات</h1>
+                        <p>خدمات النزهة 2</p>
+                    </div>
+                </div>
+                <nav class="vendor-nav">
+                    <a href="vendor-dashboard.html" class="nav-btn">
+                        <span class="nav-icon">🏠</span>
+                        <span class="nav-text">الرئيسية</span>
+                    </a>
+                    <a href="vendor-orders.html" class="nav-btn active">
+                        <span class="nav-icon">📦</span>
+                        <span class="nav-text">الطلبات</span>
+                        <span class="badge">5</span>
+                    </a>
+                    <a href="#" class="nav-btn" id="profileBtn">
+                        <span class="nav-icon">👤</span>
+                        <span class="nav-text">الملف التجاري</span>
+                    </a>
+                    <a href="#" class="nav-btn logout-btn" id="logoutBtn">
+                        <span class="nav-icon">🚪</span>
+                        <span class="nav-text">تسجيل الخروج</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Orders Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <div class="page-title-section">
+                    <h2 class="page-title">
+                        <span class="title-icon">📦</span>
+                        إدارة الطلبات
+                    </h2>
+                    <p class="page-subtitle">عرض وإدارة جميع طلباتك</p>
+                </div>
+                <div class="page-stats-mini">
+                    <div class="stat-mini">
+                        <span class="stat-mini-value" id="totalOrdersCount">18</span>
+                        <span class="stat-mini-label">إجمالي الطلبات</span>
+                    </div>
+                    <div class="stat-mini">
+                        <span class="stat-mini-value" id="pendingCount">5</span>
+                        <span class="stat-mini-label">قيد الانتظار</span>
+                    </div>
+                    <div class="stat-mini">
+                        <span class="stat-mini-value" id="completedCount">10</span>
+                        <span class="stat-mini-label">مكتملة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters-bar">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-status="all" onclick="filterOrders('all')">
+                        <span class="tab-icon">📋</span>
+                        <span class="tab-text">الكل</span>
+                        <span class="tab-count">18</span>
+                    </button>
+                    <button class="filter-tab" data-status="pending" onclick="filterOrders('pending')">
+                        <span class="tab-icon">⏳</span>
+                        <span class="tab-text">قيد الانتظار</span>
+                        <span class="tab-count">5</span>
+                    </button>
+                    <button class="filter-tab" data-status="confirmed" onclick="filterOrders('confirmed')">
+                        <span class="tab-icon">✅</span>
+                        <span class="tab-text">مؤكدة</span>
+                        <span class="tab-count">3</span>
+                    </button>
+                    <button class="filter-tab" data-status="in_progress" onclick="filterOrders('in_progress')">
+                        <span class="tab-icon">🔄</span>
+                        <span class="tab-text">جاري العمل</span>
+                        <span class="tab-count">2</span>
+                    </button>
+                    <button class="filter-tab" data-status="completed" onclick="filterOrders('completed')">
+                        <span class="tab-icon">✔️</span>
+                        <span class="tab-text">مكتملة</span>
+                        <span class="tab-count">8</span>
+                    </button>
+                    <button class="filter-tab" data-status="cancelled" onclick="filterOrders('cancelled')">
+                        <span class="tab-icon">❌</span>
+                        <span class="tab-text">ملغية</span>
+                        <span class="tab-count">0</span>
+                    </button>
+                </div>
+                <div class="filter-actions">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="🔍 البحث عن طلب..." onkeyup="searchOrders()">
+                    </div>
+                    <select class="sort-select" id="sortSelect" onchange="sortOrders()">
+                        <option value="newest">الأحدث أولاً</option>
+                        <option value="oldest">الأقدم أولاً</option>
+                        <option value="price-high">السعر: من الأعلى</option>
+                        <option value="price-low">السعر: من الأقل</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Orders List -->
+    <section class="orders-main-section">
+        <div class="container">
+            <div class="orders-grid" id="ordersGrid">
+                <!-- Pending Orders -->
+                <div class="order-card order-pending" data-status="pending" data-price="350" data-date="2024-02-11">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <h3 class="order-number">#ORD-20240211-001</h3>
+                            <span class="order-status status-pending">⏳ قيد الانتظار</span>
+                        </div>
+                        <div class="order-time">
+                            <span class="time-icon">🕐</span>
+                            <span>منذ 15 دقيقة</span>
+                        </div>
+                    </div>
+                    <div class="order-body">
+                        <div class="customer-info">
+                            <span class="customer-icon">👤</span>
+                            <span class="customer-name">أحمد محمود</span>
+                            <span class="customer-phone">📞 01012345678</span>
+                        </div>
+                        <div class="service-description">
+                            <p>🔧 صيانة تكييف - مشكلة في التبريد</p>
+                            <p class="address">📍 شارع النزهة، برج السلام، الدور الثالث</p>
+                        </div>
+                        <div class="order-details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">📅 التاريخ:</span>
+                                <span class="detail-value">2024-02-11</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">⏰ الوقت:</span>
+                                <span class="detail-value">02:30 م</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">💵 السعر:</span>
+                                <span class="detail-value">350 جنيه</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">🚚 التوصيل:</span>
+                                <span class="detail-value">مجاني</span>
+                            </div>
+                        </div>
+                        <div class="order-notes">
+                            <strong>📝 ملاحظات العميل:</strong>
+                            <p>الرجاء الحضور في الموعد المحدد، التكييف في غرفة النوم.</p>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="btn-accept" onclick="acceptOrder('ORD-20240211-001')">
+                            ✅ قبول
+                        </button>
+                        <button class="btn-reject" onclick="rejectOrder('ORD-20240211-001')">
+                            ❌ رفض
+                        </button>
+                        <button class="btn-call" onclick="callCustomer('01012345678')">
+                            📞 اتصال
+                        </button>
+                        <button class="btn-whatsapp" onclick="whatsappCustomer('01012345678')">
+                            💬 واتساب
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Confirmed Order -->
+                <div class="order-card order-confirmed" data-status="confirmed" data-price="200" data-date="2024-02-11">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <h3 class="order-number">#ORD-20240211-002</h3>
+                            <span class="order-status status-confirmed">✅ مؤكد</span>
+                        </div>
+                        <div class="order-time">
+                            <span class="time-icon">🕐</span>
+                            <span>منذ ساعة</span>
+                        </div>
+                    </div>
+                    <div class="order-body">
+                        <div class="customer-info">
+                            <span class="customer-icon">👤</span>
+                            <span class="customer-name">فاطمة علي</span>
+                            <span class="customer-phone">📞 01098765432</span>
+                        </div>
+                        <div class="service-description">
+                            <p>💡 تركيب لمبات LED في الشقة</p>
+                            <p class="address">📍 عمارات الشروق، الدور الخامس</p>
+                        </div>
+                        <div class="order-details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">📅 التاريخ:</span>
+                                <span class="detail-value">2024-02-11</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">⏰ الوقت:</span>
+                                <span class="detail-value">01:15 م</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">💵 السعر:</span>
+                                <span class="detail-value">200 جنيه</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">🚚 التوصيل:</span>
+                                <span class="detail-value">مجاني</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="btn-start" onclick="startOrder('ORD-20240211-002')">
+                            🚀 بدء العمل
+                        </button>
+                        <button class="btn-cancel" onclick="cancelOrder('ORD-20240211-002')">
+                            ❌ إلغاء
+                        </button>
+                        <button class="btn-call" onclick="callCustomer('01098765432')">
+                            📞 اتصال
+                        </button>
+                    </div>
+                </div>
+
+                <!-- In Progress Order -->
+                <div class="order-card order-progress" data-status="in_progress" data-price="500" data-date="2024-02-11">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <h3 class="order-number">#ORD-20240211-003</h3>
+                            <span class="order-status status-progress">🔄 جاري العمل</span>
+                        </div>
+                        <div class="order-time">
+                            <span class="time-icon">🕐</span>
+                            <span>منذ 3 ساعات</span>
+                        </div>
+                    </div>
+                    <div class="order-body">
+                        <div class="customer-info">
+                            <span class="customer-icon">👤</span>
+                            <span class="customer-name">محمد حسن</span>
+                            <span class="customer-phone">📞 01155556666</span>
+                        </div>
+                        <div class="service-description">
+                            <p>🚰 إصلاح تسريب مياه في الحمام</p>
+                            <p class="address">📍 شارع الجسر، فيلا رقم 12</p>
+                        </div>
+                        <div class="order-details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">📅 التاريخ:</span>
+                                <span class="detail-value">2024-02-11</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">⏰ بدأ:</span>
+                                <span class="detail-value">11:00 ص</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">💵 السعر:</span>
+                                <span class="detail-value">500 جنيه</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">⏱️ المدة:</span>
+                                <span class="detail-value">3 ساعات</span>
+                            </div>
+                        </div>
+                        <div class="progress-tracker">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%"></div>
+                            </div>
+                            <span class="progress-text">60% مكتمل</span>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="btn-complete" onclick="completeOrder('ORD-20240211-003')">
+                            ✅ إنهاء
+                        </button>
+                        <button class="btn-call" onclick="callCustomer('01155556666')">
+                            📞 اتصال
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Completed Order -->
+                <div class="order-card order-completed" data-status="completed" data-price="450" data-date="2024-02-10">
+                    <div class="order-header">
+                        <div class="order-info">
+                            <h3 class="order-number">#ORD-20240210-015</h3>
+                            <span class="order-status status-completed">✔️ مكتمل</span>
+                        </div>
+                        <div class="order-time">
+                            <span class="time-icon">🕐</span>
+                            <span>منذ يوم</span>
+                        </div>
+                    </div>
+                    <div class="order-body">
+                        <div class="customer-info">
+                            <span class="customer-icon">👤</span>
+                            <span class="customer-name">سارة أحمد</span>
+                            <span class="customer-phone">📞 01044445555</span>
+                        </div>
+                        <div class="service-description">
+                            <p>🔌 تركيب سخان كهربائي جديد</p>
+                            <p class="address">📍 شارع المدارس، عمارة 5، شقة 12</p>
+                        </div>
+                        <div class="order-details-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">📅 التاريخ:</span>
+                                <span class="detail-value">2024-02-10</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">✅ انتهى:</span>
+                                <span class="detail-value">05:30 م</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">💵 السعر:</span>
+                                <span class="detail-value">450 جنيه</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">⭐ التقييم:</span>
+                                <span class="detail-value">⭐⭐⭐⭐⭐</span>
+                            </div>
+                        </div>
+                        <div class="order-review">
+                            <strong>💬 تعليق العميل:</strong>
+                            <p>"خدمة ممتازة، سريع ومحترف. شكراً جزيلاً!"</p>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="btn-invoice" onclick="viewInvoice('ORD-20240210-015')">
+                            🧾 الفاتورة
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn" onclick="changePage('prev')">← السابق</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn" onclick="changePage('next')">التالي →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="vendor-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2024 خدمات النزهة 2 - جميع الحقوق محفوظة</p>
+                <div class="footer-links">
+                    <a href="#">📞 الدعم الفني</a>
+                    <a href="#">❓ المساعدة</a>
+                    <a href="#">📜 الشروط والأحكام</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./api-client.js"></script>
+    <script>
+        // Hide loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }, 500);
+        });
+
+        // Filter orders by status
+        function filterOrders(status) {
+            const tabs = document.querySelectorAll('.filter-tab');
+            const orders = document.querySelectorAll('.order-card');
+            
+            tabs.forEach(tab => {
+                if (tab.dataset.status === status) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            orders.forEach(order => {
+                if (status === 'all' || order.dataset.status === status) {
+                    order.style.display = 'block';
+                } else {
+                    order.style.display = 'none';
+                }
+            });
+        }
+
+        // Search orders
+        function searchOrders() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const orders = document.querySelectorAll('.order-card');
+            
+            orders.forEach(order => {
+                const text = order.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    order.style.display = 'block';
+                } else {
+                    order.style.display = 'none';
+                }
+            });
+        }
+
+        // Sort orders
+        function sortOrders() {
+            const sortValue = document.getElementById('sortSelect').value;
+            const grid = document.getElementById('ordersGrid');
+            const orders = Array.from(grid.querySelectorAll('.order-card'));
+            
+            orders.sort((a, b) => {
+                if (sortValue === 'newest') {
+                    return new Date(b.dataset.date) - new Date(a.dataset.date);
+                } else if (sortValue === 'oldest') {
+                    return new Date(a.dataset.date) - new Date(b.dataset.date);
+                } else if (sortValue === 'price-high') {
+                    return parseInt(b.dataset.price) - parseInt(a.dataset.price);
+                } else if (sortValue === 'price-low') {
+                    return parseInt(a.dataset.price) - parseInt(b.dataset.price);
+                }
+            });
+            
+            orders.forEach(order => grid.appendChild(order));
+        }
+
+        // Order actions
+        function acceptOrder(orderId) {
+            showNotification('تم قبول الطلب ' + orderId, 'success');
+            setTimeout(() => location.reload(), 1000);
+        }
+
+        function rejectOrder(orderId) {
+            if (confirm('هل أنت متأكد من رفض هذا الطلب؟')) {
+                showNotification('تم رفض الطلب ' + orderId, 'warning');
+                setTimeout(() => location.reload(), 1000);
+            }
+        }
+
+        function startOrder(orderId) {
+            showNotification('تم بدء العمل على الطلب ' + orderId, 'info');
+            setTimeout(() => location.reload(), 1000);
+        }
+
+        function completeOrder(orderId) {
+            if (confirm('هل تم إنهاء العمل على هذا الطلب؟')) {
+                showNotification('تم إنهاء الطلب ' + orderId + ' بنجاح', 'success');
+                setTimeout(() => location.reload(), 1000);
+            }
+        }
+
+        function cancelOrder(orderId) {
+            const reason = prompt('ما سبب الإلغاء؟');
+            if (reason) {
+                showNotification('تم إلغاء الطلب ' + orderId, 'warning');
+                setTimeout(() => location.reload(), 1000);
+            }
+        }
+
+        function callCustomer(phone) {
+            window.location.href = 'tel:' + phone;
+        }
+
+        function whatsappCustomer(phone) {
+            window.open('https://wa.me/2' + phone, '_blank');
+        }
+
+        function viewInvoice(orderId) {
+            showNotification('جاري فتح الفاتورة...', 'info');
+            // TODO: Open invoice
+        }
+
+        function changePage(direction) {
+            showNotification('الانتقال إلى الصفحة...', 'info');
+            // TODO: Handle pagination
+        }
+
+        // Logout
+        document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('هل تريد تسجيل الخروج؟')) {
+                showNotification('تم تسجيل الخروج بنجاح', 'info');
+                setTimeout(() => {
+                    location.href = 'index.html';
+                }, 1500);
+            }
+        });
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

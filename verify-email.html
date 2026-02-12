@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="خدمات النزهة 2 - منصة خدمية شاملة لمنطقة النزهة 2 وجسر السويس في القاهرة">
+    <meta name="keywords" content="النزهة 2, جسر السويس, خدمات, مطاعم, صيدليات, توصيل, صيانة, القاهرة">
+    <meta name="author" content="خدمات النزهة 2">
+    <meta name="theme-color" content="#FF6600">
+    <meta property="og:title" content="خدمات النزهة 2 - كل الخدمات في مكان واحد">
+    <meta property="og:description" content="اكتشف جميع المحلات والخدمات في منطقتك">
+    <meta property="og:image" content="./assets/og-image.jpg">
+    <meta property="og:type" content="website">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+    <link rel="apple-touch-icon" href="./assets/icon-192.png">
+    <link rel="stylesheet" href="./styles.css">
+    <title>التحقق - خدمات النزهة 2</title>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="login-container gradient-bg">
+        <div class="login-box" style="animation: scale-in 0.6s ease;">
+            <div class="logo-container">
+                <div class="logo-circle" style="width: 120px; height: 120px; background: white; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); animation: bounce 2s infinite;">
+                    <span style="font-size: 60px;">🔐</span>
+                </div>
+                <h1 class="neon" style="font-size: 42px; color: white; text-align: center; margin-bottom: 10px;">التحقق من الحساب</h1>
+                <p id="verificationMessage" style="font-size: 18px; color: white; text-align: center; margin-bottom: 30px; line-height: 1.6;">
+                    لقد قمنا بإرسال كود التحقق المكون من 6 أرقام<br>
+                    يرجى إدخاله أدناه للمتابعة
+                </p>
+            </div>
+
+            <!-- Verification Code Input -->
+            <div style="max-width: 500px; margin: 0 auto;">
+                <!-- Code Input Container -->
+                <div class="code-input-container" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; direction: ltr;">
+                    <input type="text" maxlength="1" class="code-digit" id="digit1" style="width: 60px; height: 70px; text-align: center; font-size: 32px; font-weight: bold; border-radius: 15px; border: 3px solid white; background: white;">
+                    <input type="text" maxlength="1" class="code-digit" id="digit2" style="width: 60px; height: 70px; text-align: center; font-size: 32px; font-weight: bold; border-radius: 15px; border: 3px solid white; background: white;">
+                    <input type="text" maxlength="1" class="code-digit" id="digit3" style="width: 60px; height: 70px; text-align: center; font-size: 32px; font-weight: bold; border-radius: 15px; border: 3px solid white; background: white;">
+                    <input type="text" maxlength="1" class="code-digit" id="digit4" style="width: 60px; height: 70px; text-align: center; font-size: 32px; font-weight: bold; border-radius: 15px; border: 3px solid white; background: white;">
+                    <input type="text" maxlength="1" class="code-digit" id="digit5" style="width: 60px; height: 70px; text-align: center; font-size: 32px; font-weight: bold; border-radius: 15px; border: 3px solid white; background: white;">
+                    <input type="text" maxlength="1" class="code-digit" id="digit6" style="width: 60px; height: 70px; text-align: center; font-size: 32px; font-weight: bold; border-radius: 15px; border: 3px solid white; background: white;">
+                </div>
+
+                <!-- Timer -->
+                <div id="timerContainer" style="text-align: center; margin-bottom: 20px;">
+                    <p style="font-size: 18px; color: white; margin-bottom: 10px;">
+                        ⏱️ ينتهي الكود خلال: <span id="timer" style="font-weight: bold; font-size: 24px;">05:00</span>
+                    </p>
+                </div>
+
+                <!-- Verify Button -->
+                <button class="button sparkle" onclick="verifyCode()" style="background: linear-gradient(135deg, #28a745, #1e7e34); color: white; width: 100%; font-size: 24px; margin-bottom: 15px; position: relative;">
+                    ✅ تحقق من الكود
+                </button>
+
+                <!-- Resend Code -->
+                <div id="resendContainer" style="text-align: center; margin-bottom: 20px;">
+                    <button class="button" onclick="resendCode()" id="resendBtn" style="background: linear-gradient(135deg, #FF6600, #CC5200); color: white; width: 100%; font-size: 20px;" disabled>
+                        🔄 إعادة إرسال الكود (<span id="resendTimer">60</span>)
+                    </button>
+                </div>
+
+                <!-- Info Box -->
+                <div style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                    <p style="color: white; font-size: 16px; line-height: 1.8; text-align: center;">
+                        💡 <strong>لم تستلم الكود؟</strong><br>
+                        تحقق من مجلد البريد المهمل (Spam)<br>
+                        أو تأكد من رقم الهاتف/البريد الإلكتروني
+                    </p>
+                </div>
+
+                <!-- Back Button -->
+                <button class="button" onclick="window.location.href='login.html'" style="background: linear-gradient(135deg, #6c757d, #545b62); color: white; width: 100%; font-size: 20px;">
+                    ← العودة لتسجيل الدخول
+                </button>
+            </div>
+        </div>
+
+        <div style="text-align: center; color: white; margin-top: 30px; font-size: 18px;">
+            <p>🔒 بياناتك آمنة ومحمية 100%</p>
+            <p style="margin-top: 10px;">
+                <a href="#" style="color: white; text-decoration: underline;">الشروط والأحكام</a> | 
+                <a href="#" style="color: white; text-decoration: underline;">سياسة الخصوصية</a> |
+                <a href="#" style="color: white; text-decoration: underline;">المساعدة</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="./scripts.js"></script>
+    <script>
+        let timerSeconds = 300; // 5 minutes
+        let resendTimerSeconds = 60; // 1 minute
+        let timerInterval;
+        let resendInterval;
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                }, 500);
+            }, 1000);
+
+            // Start timers
+            startTimer();
+            startResendTimer();
+
+            // Auto-focus first input
+            document.getElementById('digit1').focus();
+
+            // Setup code inputs
+            setupCodeInputs();
+        });
+
+        function setupCodeInputs() {
+            const inputs = document.querySelectorAll('.code-digit');
+            
+            inputs.forEach((input, index) => {
+                // Only allow numbers
+                input.addEventListener('input', (e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                    
+                    // Move to next input
+                    if (e.target.value && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                    
+                    // Auto-verify when all digits are entered
+                    if (index === inputs.length - 1 && e.target.value) {
+                        setTimeout(() => {
+                            verifyCode();
+                        }, 500);
+                    }
+                });
+
+                // Handle backspace
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+
+                // Handle paste
+                input.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const pastedData = e.clipboardData.getData('text');
+                    const digits = pastedData.replace(/[^0-9]/g, '').split('');
+                    
+                    inputs.forEach((input, i) => {
+                        if (digits[i]) {
+                            input.value = digits[i];
+                        }
+                    });
+                    
+                    if (digits.length >= 6) {
+                        setTimeout(() => {
+                            verifyCode();
+                        }, 500);
+                    }
+                });
+            });
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timerSeconds--;
+                
+                const minutes = Math.floor(timerSeconds / 60);
+                const seconds = timerSeconds % 60;
+                
+                document.getElementById('timer').textContent = 
+                    `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                
+                if (timerSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    alert('⏰ انتهت صلاحية الكود، يرجى طلب كود جديد');
+                    disableInputs();
+                }
+            }, 1000);
+        }
+
+        function startResendTimer() {
+            resendInterval = setInterval(() => {
+                resendTimerSeconds--;
+                document.getElementById('resendTimer').textContent = resendTimerSeconds;
+                
+                if (resendTimerSeconds <= 0) {
+                    clearInterval(resendInterval);
+                    document.getElementById('resendBtn').disabled = false;
+                    document.getElementById('resendBtn').innerHTML = '🔄 إعادة إرسال الكود';
+                }
+            }, 1000);
+        }
+
+        function verifyCode() {
+            const code = Array.from(document.querySelectorAll('.code-digit'))
+                .map(input => input.value)
+                .join('');
+            
+            if (code.length !== 6) {
+                alert('⚠️ من فضلك أدخل الكود المكون من 6 أرقام');
+                return;
+            }
+            
+            // Simulate verification (in production, send to backend)
+            showLoadingMessage('🔄 جاري التحقق من الكود...');
+            
+            setTimeout(() => {
+                // Simulate successful verification
+                if (code === '123456' || code.length === 6) {
+                    clearInterval(timerInterval);
+                    clearInterval(resendInterval);
+                    
+                    alert('✅ تم التحقق بنجاح!');
+                    
+                    // Mark as verified
+                    NozhaServices.setUserSession({ 
+                        verified: true,
+                        verificationTime: new Date().toISOString()
+                    });
+                    
+                    // Redirect to main page
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                } else {
+                    // Wrong code
+                    alert('❌ الكود غير صحيح، يرجى المحاولة مرة أخرى');
+                    clearInputs();
+                }
+            }, 2000);
+        }
+
+        function resendCode() {
+            if (resendTimerSeconds > 0) {
+                return;
+            }
+            
+            showLoadingMessage('📧 جاري إعادة إرسال الكود...');
+            
+            setTimeout(() => {
+                alert('✅ تم إرسال كود جديد!');
+                
+                // Reset timers
+                timerSeconds = 300;
+                resendTimerSeconds = 60;
+                
+                clearInterval(timerInterval);
+                clearInterval(resendInterval);
+                
+                startTimer();
+                startResendTimer();
+                
+                document.getElementById('resendBtn').disabled = true;
+                
+                // Clear inputs
+                clearInputs();
+                enableInputs();
+            }, 2000);
+        }
+
+        function clearInputs() {
+            document.querySelectorAll('.code-digit').forEach(input => {
+                input.value = '';
+            });
+            document.getElementById('digit1').focus();
+        }
+
+        function disableInputs() {
+            document.querySelectorAll('.code-digit').forEach(input => {
+                input.disabled = true;
+                input.style.opacity = '0.5';
+            });
+        }
+
+        function enableInputs() {
+            document.querySelectorAll('.code-digit').forEach(input => {
+                input.disabled = false;
+                input.style.opacity = '1';
+            });
+        }
+
+        function showLoadingMessage(message) {
+            alert(message);
+        }
+
+        // Get verification method from URL
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const phone = urlParams.get('phone');
+            const email = urlParams.get('email');
+            
+            if (phone) {
+                document.getElementById('verificationMessage').innerHTML = 
+                    `تم إرسال كود التحقق المكون من 6 أرقام إلى<br><strong>${phone}</strong><br>يرجى إدخاله أدناه للمتابعة`;
+            } else if (email) {
+                document.getElementById('verificationMessage').innerHTML = 
+                    `تم إرسال كود التحقق المكون من 6 أرقام إلى<br><strong>${email}</strong><br>يرجى إدخاله أدناه للمتابعة`;
+            }
+        });
+    </script>
+</body>
+</html>

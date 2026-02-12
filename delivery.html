@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="خدمة توصيل سريع في منطقة النزهة 2">
+    <meta name="theme-color" content="#00FF00">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="../styles.css">
+    <title>توصيل سريع - خدمات النزهة 2</title>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <header class="header" style="background: linear-gradient(135deg, #00FF00, #00CC00); padding: 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 5px 20px rgba(0,0,0,0.3);">
+        <div class="container" style="max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+            <div class="logo" style="display: flex; align-items: center; gap: 15px;">
+                <a href="../index.html" style="text-decoration: none; display: flex; align-items: center; gap: 15px;">
+                    <span style="font-size: 50px; animation: bounce 2s infinite;">🏍️</span>
+                    <div>
+                        <h1 style="color: white; font-size: 32px; margin: 0;">توصيل سريع</h1>
+                        <p style="color: white; font-size: 16px; margin: 0;">⚡ خدمة سريعة لحد باب البيت</p>
+                    </div>
+                </a>
+            </div>
+            <nav style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <a href="../index.html" class="button" style="background: white; color: #00CC00; font-size: 18px; padding: 12px 25px;">🏠 الرئيسية</a>
+                <a href="maintenance.html" class="button" style="background: white; color: #FF6600; font-size: 18px; padding: 12px 25px;">🔧 صيانة</a>
+                <a href="emergency.html" class="button" style="background: white; color: #FF0000; font-size: 18px; padding: 12px 25px;">🚑 طوارئ</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero-banner" style="background: linear-gradient(135deg, #00FF00, #00CC00); padding: 60px 20px; text-align: center;">
+        <h2 class="neon" style="font-size: 56px; color: white; margin-bottom: 20px; animation: bounce 2s infinite;">🏍️ خدمة التوصيل السريع 🏍️</h2>
+        <p style="font-size: 28px; color: white; margin-bottom: 30px;">اطلب أي حاجة توصلك في أسرع وقت!</p>
+    </div>
+
+    <div class="delivery-container" style="max-width: 900px; margin: 60px auto; padding: 20px;">
+        <div class="progress-bar" style="display: flex; justify-content: space-between; margin-bottom: 60px; position: relative;">
+            <div style="position: absolute; top: 50%; left: 0; right: 0; height: 4px; background: #ddd; z-index: 0;"></div>
+            <div id="progressFill" style="position: absolute; top: 50%; left: 0; height: 4px; background: linear-gradient(90deg, #00FF00, #00CC00); z-index: 0; width: 0%; transition: width 0.3s;"></div>
+            
+            <div class="step" id="step1Indicator" style="z-index: 1; text-align: center;">
+                <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #00FF00, #00CC00); color: white; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; margin: 0 auto 10px; box-shadow: 0 5px 15px rgba(0,255,0,0.5);">1</div>
+                <p style="font-size: 18px; font-weight: bold; color: #00CC00;">نوع الطلب</p>
+            </div>
+            
+            <div class="step" id="step2Indicator" style="z-index: 1; text-align: center;">
+                <div style="width: 60px; height: 60px; border-radius: 50%; background: #ddd; color: white; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; margin: 0 auto 10px;">2</div>
+                <p style="font-size: 18px; color: #999;">التفاصيل</p>
+            </div>
+            
+            <div class="step" id="step3Indicator" style="z-index: 1; text-align: center;">
+                <div style="width: 60px; height: 60px; border-radius: 50%; background: #ddd; color: white; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; margin: 0 auto 10px;">3</div>
+                <p style="font-size: 18px; color: #999;">العنوان</p>
+            </div>
+            
+            <div class="step" id="step4Indicator" style="z-index: 1; text-align: center;">
+                <div style="width: 60px; height: 60px; border-radius: 50%; background: #ddd; color: white; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; margin: 0 auto 10px;">4</div>
+                <p style="font-size: 18px; color: #999;">التأكيد</p>
+            </div>
+        </div>
+
+        <div class="card" style="padding: 40px;">
+            <div id="step1" class="form-step">
+                <h3 style="font-size: 36px; text-align: center; color: #00CC00; margin-bottom: 40px;">اختار نوع الطلب</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                    <div class="card order-type" onclick="selectOrderType('food', '🍕 طعام')" style="cursor: pointer; background: linear-gradient(135deg, #FF6600, #CC5200); color: white; padding: 30px; text-align: center; transition: all 0.3s;">
+                        <div style="font-size: 80px; margin-bottom: 15px;">🍕</div>
+                        <h4 style="font-size: 24px;">طعام</h4>
+                    </div>
+                    
+                    <div class="card order-type" onclick="selectOrderType('groceries', '🛒 بقالة')" style="cursor: pointer; background: linear-gradient(135deg, #28a745, #1e7e34); color: white; padding: 30px; text-align: center; transition: all 0.3s;">
+                        <div style="font-size: 80px; margin-bottom: 15px;">🛒</div>
+                        <h4 style="font-size: 24px;">بقالة</h4>
+                    </div>
+                    
+                    <div class="card order-type" onclick="selectOrderType('pharmacy', '💊 صيدلية')" style="cursor: pointer; background: linear-gradient(135deg, #0066FF, #0052CC); color: white; padding: 30px; text-align: center; transition: all 0.3s;">
+                        <div style="font-size: 80px; margin-bottom: 15px;">💊</div>
+                        <h4 style="font-size: 24px;">صيدلية</h4>
+                    </div>
+                    
+                    <div class="card order-type" onclick="selectOrderType('packages', '📦 طرود')" style="cursor: pointer; background: linear-gradient(135deg, #9933FF, #7A29CC); color: white; padding: 30px; text-align: center; transition: all 0.3s;">
+                        <div style="font-size: 80px; margin-bottom: 15px;">📦</div>
+                        <h4 style="font-size: 24px;">طرود</h4>
+                    </div>
+                    
+                    <div class="card order-type" onclick="selectOrderType('documents', '📄 مستندات')" style="cursor: pointer; background: linear-gradient(135deg, #FFD700, #FFA500); color: black; padding: 30px; text-align: center; transition: all 0.3s;">
+                        <div style="font-size: 80px; margin-bottom: 15px;">📄</div>
+                        <h4 style="font-size: 24px;">مستندات</h4>
+                    </div>
+                    
+                    <div class="card order-type" onclick="selectOrderType('other', '📌 أخرى')" style="cursor: pointer; background: linear-gradient(135deg, #6c757d, #545b62); color: white; padding: 30px; text-align: center; transition: all 0.3s;">
+                        <div style="font-size: 80px; margin-bottom: 15px;">📌</div>
+                        <h4 style="font-size: 24px;">أخرى</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step2" class="form-step" style="display: none;">
+                <h3 style="font-size: 36px; text-align: center; color: #00CC00; margin-bottom: 40px;">تفاصيل الطلب</h3>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 10px;">اسمك</label>
+                    <input type="text" id="customerName" placeholder="أدخل اسمك" style="width: 100%; padding: 18px; font-size: 20px; border: 3px solid #00CC00; border-radius: 15px; text-align: right;">
+                </div>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 10px;">رقم الهاتف</label>
+                    <input type="tel" id="customerPhone" placeholder="01012345678" style="width: 100%; padding: 18px; font-size: 20px; border: 3px solid #00CC00; border-radius: 15px; text-align: right;">
+                </div>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 10px;">تفاصيل الطلب</label>
+                    <textarea id="orderDetails" rows="5" placeholder="اكتب تفاصيل طلبك هنا..." style="width: 100%; padding: 18px; font-size: 20px; border: 3px solid #00CC00; border-radius: 15px; text-align: right; resize: vertical;"></textarea>
+                </div>
+                
+                <div style="display: flex; gap: 15px; justify-content: space-between;">
+                    <button class="button" onclick="prevStep()" style="background: #6c757d; color: white; font-size: 20px; flex: 1;">السابق</button>
+                    <button class="button" onclick="nextStep()" style="background: linear-gradient(135deg, #00FF00, #00CC00); color: white; font-size: 20px; flex: 1;">التالي</button>
+                </div>
+            </div>
+
+            <div id="step3" class="form-step" style="display: none;">
+                <h3 style="font-size: 36px; text-align: center; color: #00CC00; margin-bottom: 40px;">العنوان والموقع</h3>
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 10px;">العنوان بالتفصيل</label>
+                    <textarea id="deliveryAddress" rows="3" placeholder="مثال: شارع النزهة، عمارة 5، شقة 12" style="width: 100%; padding: 18px; font-size: 20px; border: 3px solid #00CC00; border-radius: 15px; text-align: right;"></textarea>
+                </div>
+                
+                <button class="button glow" onclick="getLocation()" style="background: linear-gradient(135deg, #0066FF, #0052CC); color: white; font-size: 22px; width: 100%; margin-bottom: 25px;">📍 حدد موقعك من GPS</button>
+                
+                <div id="miniMap" style="height: 400px; border-radius: 15px; border: 4px solid #00CC00; margin-bottom: 25px;"></div>
+                
+                <input type="hidden" id="latitude">
+                <input type="hidden" id="longitude">
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-size: 22px; font-weight: bold; display: block; margin-bottom: 10px;">ملاحظات إضافية</label>
+                    <input type="text" id="deliveryNotes" placeholder="مثال: اطرق الجرس مرتين" style="width: 100%; padding: 18px; font-size: 20px; border: 3px solid #00CC00; border-radius: 15px; text-align: right;">
+                </div>
+                
+                <div style="display: flex; gap: 15px; justify-content: space-between;">
+                    <button class="button" onclick="prevStep()" style="background: #6c757d; color: white; font-size: 20px; flex: 1;">السابق</button>
+                    <button class="button" onclick="nextStep()" style="background: linear-gradient(135deg, #00FF00, #00CC00); color: white; font-size: 20px; flex: 1;">التالي</button>
+                </div>
+            </div>
+
+            <div id="step4" class="form-step" style="display: none;">
+                <h3 style="font-size: 36px; text-align: center; color: #00CC00; margin-bottom: 40px;">✅ تأكيد الطلب</h3>
+                
+                <div class="card" style="background: #f8f9fa; margin-bottom: 30px;">
+                    <h4 style="font-size: 28px; color: #00CC00; margin-bottom: 20px;">ملخص طلبك</h4>
+                    <div id="orderSummary" style="font-size: 20px; line-height: 2;"></div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #FFD700, #FFA500); padding: 25px; border-radius: 15px; margin-bottom: 30px; text-align: center;">
+                    <h4 style="font-size: 28px; color: black; margin-bottom: 15px;">💰 تكلفة التوصيل</h4>
+                    <p style="font-size: 36px; font-weight: bold; color: #FF0000;">20 جنيه</p>
+                    <p style="font-size: 18px; color: black;">الدفع عند الاستلام</p>
+                </div>
+                
+                <div style="display: flex; gap: 15px; justify-content: space-between;">
+                    <button class="button" onclick="prevStep()" style="background: #6c757d; color: white; font-size: 20px; flex: 1;">السابق</button>
+                    <button class="button sparkle glow" onclick="submitOrder()" style="background: linear-gradient(135deg, #25D366, #128C7E); color: white; font-size: 20px; flex: 2;">📱 أرسل الطلب واتساب</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer style="background: #1a1a1a; color: white; padding: 40px 20px; text-align: center;">
+        <p style="font-size: 18px;">© 2024 خدمات النزهة 2 - جميع الحقوق محفوظة</p>
+        <p style="font-size: 16px; margin-top: 10px;">📱 واتساب: 201068992077 | ✉️ pertipro1@gmail.com</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => document.getElementById('loadingScreen').style.display = 'none', 500);
+            }, 1000);
+        });
+
+        let currentStep = 1;
+        let orderData = {
+            type: '',
+            typeLabel: '',
+            customerName: '',
+            customerPhone: '',
+            orderDetails: '',
+            deliveryAddress: '',
+            deliveryNotes: '',
+            latitude: '',
+            longitude: ''
+        };
+        let miniMap;
+
+        function selectOrderType(type, label) {
+            orderData.type = type;
+            orderData.typeLabel = label;
+            nextStep();
+        }
+
+        function nextStep() {
+            if (currentStep === 2) {
+                orderData.customerName = document.getElementById('customerName').value;
+                orderData.customerPhone = document.getElementById('customerPhone').value;
+                orderData.orderDetails = document.getElementById('orderDetails').value;
+                
+                if (!orderData.customerName || !orderData.customerPhone || !orderData.orderDetails) {
+                    alert('⚠️ من فضلك أكمل جميع البيانات');
+                    return;
+                }
+            }
+            
+            if (currentStep === 3) {
+                orderData.deliveryAddress = document.getElementById('deliveryAddress').value;
+                orderData.deliveryNotes = document.getElementById('deliveryNotes').value;
+                orderData.latitude = document.getElementById('latitude').value;
+                orderData.longitude = document.getElementById('longitude').value;
+                
+                if (!orderData.deliveryAddress) {
+                    alert('⚠️ من فضلك أدخل العنوان');
+                    return;
+                }
+                
+                showOrderSummary();
+            }
+            
+            if (currentStep < 4) {
+                document.getElementById('step' + currentStep).style.display = 'none';
+                currentStep++;
+                document.getElementById('step' + currentStep).style.display = 'block';
+                updateProgress();
+                
+                if (currentStep === 3 && !miniMap) {
+                    initMiniMap();
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById('step' + currentStep).style.display = 'none';
+                currentStep--;
+                document.getElementById('step' + currentStep).style.display = 'block';
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentStep - 1) / 3) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            for (let i = 1; i <= 4; i++) {
+                const indicator = document.getElementById('step' + i + 'Indicator');
+                const circle = indicator.querySelector('div');
+                const text = indicator.querySelector('p');
+                
+                if (i <= currentStep) {
+                    circle.style.background = 'linear-gradient(135deg, #00FF00, #00CC00)';
+                    circle.style.boxShadow = '0 5px 15px rgba(0,255,0,0.5)';
+                    text.style.color = '#00CC00';
+                    text.style.fontWeight = 'bold';
+                } else {
+                    circle.style.background = '#ddd';
+                    circle.style.boxShadow = 'none';
+                    text.style.color = '#999';
+                    text.style.fontWeight = 'normal';
+                }
+            }
+        }
+
+        function initMiniMap() {
+            miniMap = L.map('miniMap').setView([30.1370, 31.3830], 14);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap',
+                maxZoom: 19
+            }).addTo(miniMap);
+            
+            miniMap.on('click', function(e) {
+                document.getElementById('latitude').value = e.latlng.lat;
+                document.getElementById('longitude').value = e.latlng.lng;
+                
+                if (window.deliveryMarker) {
+                    miniMap.removeLayer(window.deliveryMarker);
+                }
+                
+                window.deliveryMarker = L.marker([e.latlng.lat, e.latlng.lng], {
+                    icon: L.divIcon({
+                        html: '<div style="background: #FF0000; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; border: 3px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.4);">📍</div>',
+                        className: 'delivery-marker',
+                        iconSize: [40, 40]
+                    })
+                }).addTo(miniMap);
+            });
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    
+                    document.getElementById('latitude').value = lat;
+                    document.getElementById('longitude').value = lng;
+                    
+                    if (miniMap) {
+                        miniMap.setView([lat, lng], 16);
+                        
+                        if (window.deliveryMarker) {
+                            miniMap.removeLayer(window.deliveryMarker);
+                        }
+                        
+                        window.deliveryMarker = L.marker([lat, lng], {
+                            icon: L.divIcon({
+                                html: '<div style="background: #FF0000; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; border: 3px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.4);">📍</div>',
+                                className: 'delivery-marker',
+                                iconSize: [40, 40]
+                            })
+                        }).addTo(miniMap);
+                    }
+                    
+                    alert('✅ تم تحديد موقعك بنجاح!');
+                }, () => {
+                    alert('⚠️ لم نتمكن من تحديد موقعك. من فضلك اختار الموقع يدوياً على الخريطة.');
+                });
+            } else {
+                alert('⚠️ المتصفح لا يدعم تحديد الموقع');
+            }
+        }
+
+        function showOrderSummary() {
+            const summary = `
+                <p><strong>نوع الطلب:</strong> ${orderData.typeLabel}</p>
+                <p><strong>الاسم:</strong> ${orderData.customerName}</p>
+                <p><strong>الهاتف:</strong> ${orderData.customerPhone}</p>
+                <p><strong>التفاصيل:</strong> ${orderData.orderDetails}</p>
+                <p><strong>العنوان:</strong> ${orderData.deliveryAddress}</p>
+                ${orderData.deliveryNotes ? '<p><strong>ملاحظات:</strong> ' + orderData.deliveryNotes + '</p>' : ''}
+                ${orderData.latitude ? '<p><strong>الموقع:</strong> تم التحديد ✅</p>' : ''}
+            `;
+            document.getElementById('orderSummary').innerHTML = summary;
+        }
+
+        function submitOrder() {
+            const message = `
+🔥 طلب توصيل جديد 🔥
+
+نوع الطلب: ${orderData.typeLabel}
+الاسم: ${orderData.customerName}
+الهاتف: ${orderData.customerPhone}
+التفاصيل: ${orderData.orderDetails}
+
+العنوان: ${orderData.deliveryAddress}
+${orderData.deliveryNotes ? 'ملاحظات: ' + orderData.deliveryNotes : ''}
+${orderData.latitude ? 'الموقع: https://www.google.com/maps?q=' + orderData.latitude + ',' + orderData.longitude : ''}
+
+تكلفة التوصيل: 20 جنيه (الدفع عند الاستلام)
+
+---
+من تطبيق خدمات النزهة 2
+            `.trim();
+            
+            const phone = "201068992077";
+            const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>إدارة الاشتراكات</title>
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../css/admin-dashboard.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div class="admin-container">
+<main class="admin-main">
+
+<h1>إدارة الاشتراكات</h1>
+
+<div class="admin-card">
+<table class="admin-table">
+<thead>
+<tr>
+<th>المزود</th>
+<th>الخطة</th>
+<th>تاريخ البداية</th>
+<th>تاريخ الانتهاء</th>
+<th>الحالة</th>
+<th>إجراءات</th>
+</tr>
+</thead>
+<tbody id="subscriptions-table"></tbody>
+</table>
+</div>
+
+</main>
+</div>
+
+<script type="module">
+import API from '../js/api-client.js';
+
+function checkAdmin(){
+  const token = localStorage.getItem('auth_token');
+  if(!token) location.href='admin-login.html';
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  if(payload.role !== 'admin') location.href='../index.html';
+}
+
+async function loadSubscriptions(){
+  checkAdmin();
+  const res = await API.Subscriptions.getPlans();
+  const plans = res.data;
+
+  document.getElementById('subscriptions-table').innerHTML =
+  plans.map(p=>`
+    <tr>
+      <td>${p.vendorName || '-'}</td>
+      <td>${p.name}</td>
+      <td>${p.startDate || '-'}</td>
+      <td>${p.endDate || '-'}</td>
+      <td>${p.active ? 'نشط' : 'منتهي'}</td>
+      <td>
+        <button onclick="renew('${p.id}')" class="btn-small">تجديد</button>
+        <button onclick="cancelSub('${p.id}')" class="btn-small danger">إلغاء</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+window.renew = async id=>{
+  await API.Subscriptions.renew(id);
+  loadSubscriptions();
+}
+
+window.cancelSub = async id=>{
+  if(confirm('تأكيد الإلغاء؟')){
+    await API.Subscriptions.cancel(id);
+    loadSubscriptions();
+  }
+}
+
+loadSubscriptions();
+</script>
+</body>
+</html>

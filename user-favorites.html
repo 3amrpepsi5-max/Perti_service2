@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>المفضلة - النزهة 2</title>
+<link rel="stylesheet" href="../css/styles.css">
+<link rel="stylesheet" href="../css/user-dashboard.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+<main class="dashboard-main">
+
+<h1>المفضلة</h1>
+<div id="favorites-container"></div>
+
+</main>
+</div>
+
+<script type="module">
+import API from '../js/api-client.js';
+
+async function loadFavorites(){
+  const res = await API.Vendors.getAll({ favorites: true });
+  const vendors = res.data.vendors;
+
+  const container = document.getElementById('favorites-container');
+
+  if(!vendors.length){
+    container.innerHTML = '<p>لا يوجد عناصر مفضلة.</p>';
+    return;
+  }
+
+  container.innerHTML = vendors.map(v=>`
+    <div class="card" style="margin-bottom:20px;">
+      <h3>${v.name}</h3>
+      <p>${v.category}</p>
+      <button onclick="removeFav(${v.id})" class="button">
+        إزالة من المفضلة
+      </button>
+    </div>
+  `).join('');
+}
+
+window.removeFav = async function(id){
+  await API.Vendors.update(id, { favorite: false });
+  loadFavorites();
+}
+
+loadFavorites();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+{
+  "name": "خدمات النزهة 2",
+  "short_name": "النزهة 2",
+  "description": "منصة خدمية شاملة لمنطقة النزهة 2 وجسر السويس",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#FF6600",
+  "theme_color": "#FF6600",
+  "orientation": "portrait",
+  "dir": "rtl",
+  "lang": "ar",
+  "icons": [
+    {
+      "src": "./assets/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/icon-152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./assets/screenshot1.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/screenshot2.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["business", "lifestyle", "navigation"],
+  "shortcuts": [
+    {
+      "name": "توصيل سريع",
+      "url": "/pages/delivery.html",
+      "description": "اطلب توصيل"
+    },
+    {
+      "name": "طوارئ",
+      "url": "/pages/emergency.html",
+      "description": "أرقام طوارئ"
+    }
+  ]
+}
